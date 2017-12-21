@@ -21,9 +21,9 @@ var CONST = {
 	SRC_FOLDER: "src",
 	DIST_FOLDER: "dist",
 	MIN_SUFFIX: ".min.js",
-	JS_SRC: "src/jasmine-matchers.js",
-	FOLDERS_TO_ARCHIVE: ["LICENSE", "dist/**/*", "lib/**/*", "src/**/*", "test/**/*"],
-	ARCHIVE_FILE: "jasmine-fixture.zip",
+	JS_SRC: "src/jasmineMatchers.js",
+	FOLDERS_TO_ARCHIVE: ["LICENSE", "README.md", "dist/**/*", "lib/**/*", "src/**/*", "test/**/*"],
+	ARCHIVE_FILE: "jasmineMatchers.zip",
 	ARCHIVE_FOLDER: "archive",
 	VERSION_PATTERN: new RegExp("version = \"(\\d.\\d(.\\d)?)\";")
 };

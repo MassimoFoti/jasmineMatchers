@@ -1,0 +1,34 @@
+{
+  "name": "jasmineMatchers",
+  "description": "Additional matchers for Jasmine",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/MassimoFoti/jasmineMatchers",
+  "authors": [
+    "Massimo Foti <massimo@massimocorner.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/MassimoFoti/jasmineMatchers"
+  },
+  "main": [
+    "dist/jasmineMatchers.js"
+  ],
+  "dependencies": {
+    "jasmine": ">=2",
+    "jquery": ">=2"
+  },
+  "keywords": [
+    "jasmine"
+  ],
+  "ignore": [
+    "**/.*",
+    "gulpfile.js",
+    "todo.txt",
+    ".idea",
+    "archive",
+    "lib",
+    "node_modules",
+    "src",
+    "test"
+  ]
+}
