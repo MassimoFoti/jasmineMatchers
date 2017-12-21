@@ -165,6 +165,49 @@ describe("jasmineMatchers", function(){
 
 	describe("Provides the following jQuery-based custom matchers for Jasmine:", function(){
 
+		describe(".toBeMatchedBy()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toBeMatchedBy();
+			});
+
+			describe("Given a jQuery object and a selector:", function(){
+
+				describe("Matches if:", function(){
+
+					it("The jQuery object matches the selector", function(){
+						var element = jQuery("<div class='test'></div>");
+						var result = matcher.compare(element, "div");
+						expect(result.pass).toBe(true);
+						var moreResult = matcher.compare(element, ".test");
+						expect(moreResult.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("The jQuery object does not matches the selector", function(){
+						var element = jQuery("<div class='test'></div>");
+						var result = matcher.compare(element, "span");
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Element not matched by: span");
+					});
+
+					it("Only one argument is provided", function(){
+						var element = jQuery("<div></div>");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify the selector as string");
+					});
+
+				});
+
+			});
+
+		});
+
 		describe(".toHaveClass()", function(){
 
 			var matcher;
@@ -196,6 +239,7 @@ describe("jasmineMatchers", function(){
 						var element = jQuery("<div class='test'></div>");
 						var result = matcher.compare(element, "missing");
 						expect(result.pass).toBe(false);
+						expect(result.message).toBe("CSS class: missing not found");
 					});
 
 					it("Only one argument is provided", function(){

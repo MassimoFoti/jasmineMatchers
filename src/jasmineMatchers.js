@@ -45,6 +45,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					matchType = true;
 				}
 				for(var key in duckType){
+					/* istanbul ignore else */
 					if(duckType.hasOwnProperty(key) === true){
 						var duckProp = duckType[key];
 						if(actual.hasOwnProperty(key) === true){
@@ -95,6 +96,33 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 				}
 				result.message = "Property: " + property + " is not readonly";
 				return result;
+			}
+		};
+	};
+
+	jasmineMatchers.toBeMatchedBy = function(){
+		return {
+			/**
+			 * @param {jQuery} element
+			 * @param {String} selector
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(element, selector){
+				var result = {
+					pass: false
+				};
+				if(jQuery.type(selector) !== "string"){
+					result.message = "Please specify the selector as string";
+					return result;
+				}
+				if(jQuery(element).filter(selector).length > 0){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Element not matched by: " + selector;
+					return result;
+				}
 			}
 		};
 	};
