@@ -163,4 +163,54 @@ describe("jasmineMatchers", function(){
 
 	});
 
+	describe("Provides the following jQuery-based custom matchers for Jasmine:", function(){
+
+		describe(".toHaveClass()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toHaveClass();
+			});
+
+			describe("Given a jQuery object and the name of a CSS class:", function(){
+
+				describe("Matches if:", function(){
+
+					it("The class is found", function(){
+						var element = jQuery("<div class='test'></div>");
+						var result = matcher.compare(element, "test");
+						expect(result.pass).toBe(true);
+					});
+
+					it("The jQuery object also contains multiple classes other then the given one", function(){
+						var element = jQuery("<div class='test more'></div>");
+						var result = matcher.compare(element, "test");
+						expect(result.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("The class is not found", function(){
+						var element = jQuery("<div class='test'></div>");
+						var result = matcher.compare(element, "missing");
+						expect(result.pass).toBe(false);
+					});
+
+					it("Only one argument is provided", function(){
+						var element = jQuery("<div></div>");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify the name of the CSS class as string");
+					});
+
+				});
+
+			});
+
+		});
+
+	});
+
 });

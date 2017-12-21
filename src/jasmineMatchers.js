@@ -99,6 +99,33 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		};
 	};
 
+	jasmineMatchers.toHaveClass = function(){
+		return {
+			/**
+			 * @param {jQuery} element
+			 * @param {String} className
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(element, className){
+				var result = {
+					pass: false
+				};
+				if(jQuery.type(className) !== "string"){
+					result.message = "Please specify the name of the CSS class as string";
+					return result;
+				}
+				if(jQuery(element).hasClass(className) === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "CSS class: " + className + " not found";
+					return result;
+				}
+			}
+		};
+	};
+
 	jasmine.getEnv().beforeEach(function(){
 		jasmine.getEnv().addMatchers(jasmineMatchers);
 	});
