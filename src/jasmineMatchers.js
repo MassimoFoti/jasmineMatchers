@@ -20,6 +20,8 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 
 	jasmineMatchers.version = "0.1";
 
+	/* Generic matchers */
+
 	jasmineMatchers.toMatchDuckType = function(){
 		return {
 			/**
@@ -99,6 +101,8 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			}
 		};
 	};
+
+	/* jQuery-based matchers */
 
 	jasmineMatchers.toBeMatchedBy = function(){
 		return {
