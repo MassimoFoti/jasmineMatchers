@@ -1,3 +1,5 @@
+- Write docs
+
 - Update to jQuery 3
 - Add release notes
 
