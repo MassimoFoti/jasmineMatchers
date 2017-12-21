@@ -65,7 +65,6 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 						}
 					}
 				}
-
 				result.pass = true;
 				return result;
 			}
