@@ -104,6 +104,13 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 
 	/* jQuery-based matchers */
 
+	var hasProperty = function(actualValue, expectedValue){
+		if(expectedValue === undefined){
+			return actualValue !== undefined;
+		}
+		return actualValue === expectedValue;
+	};
+
 	jasmineMatchers.toBeMatchedBy = function(){
 		return {
 			/**
@@ -125,6 +132,34 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 				}
 				else{
 					result.message = "Element not matched by: " + selector;
+					return result;
+				}
+			}
+		};
+	};
+
+	jasmineMatchers.toHaveAttr = function(){
+		return {
+			/**
+			 * @param {jQuery} element
+			 * @param {String} attributeName
+			 * @param {String} expectedValue
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(element, attributeName, expectedValue){
+				var result = {
+					pass: false
+				};
+				if(jQuery.type(attributeName) !== "string"){
+					result.message = "Please specify the attribute as string";
+					return result;
+				}
+				if(hasProperty(jQuery(element).attr(attributeName), expectedValue) === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Attribute: " + attributeName + " does not match";
 					return result;
 				}
 			}

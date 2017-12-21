@@ -208,6 +208,59 @@ describe("jasmineMatchers", function(){
 
 		});
 
+		describe(".toHaveAttr()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toHaveAttr();
+			});
+
+			describe("Given a jQuery object, the name of an attribute and an optional value:", function(){
+
+				describe("Matches if:", function(){
+
+					it("The attribute is found", function(){
+						var element = jQuery("<div class='test'></div>");
+						var result = matcher.compare(element, "class");
+						expect(result.pass).toBe(true);
+					});
+
+					it("The attribute is found and its value matches", function(){
+						var element = jQuery("<div class='test'></div>");
+						var result = matcher.compare(element, "class", "test");
+						expect(result.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("The attribute is not found", function(){
+						var element = jQuery("<div class='test'></div>");
+						var result = matcher.compare(element, "missing");
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Attribute: missing does not match");
+					});
+
+					it("The attribute is found, but its value does not matches", function(){
+						var element = jQuery("<div class='test'></div>");
+						var result = matcher.compare(element, "class", "missing");
+						expect(result.pass).toBe(false);
+					});
+
+					it("Only one argument is provided", function(){
+						var element = jQuery("<div id='x'></div>");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify the attribute as string");
+					});
+
+				});
+
+			});
+
+		});
+
 		describe(".toHaveClass()", function(){
 
 			var matcher;
