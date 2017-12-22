@@ -528,6 +528,72 @@ describe("jasmineMatchers", function(){
 
 		});
 
+		describe(".toHaveCss()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toHaveCss();
+			});
+
+			describe("Given a jQuery object, the name of a CSS property and an optional value. Check the computed style property", function(){
+
+				describe("Matches if:", function(){
+
+					it("The CSS property is found inside an inline style", function(){
+						var element = jQuery("#blockDisplay");
+						var result = matcher.compare(element, "display");
+						expect(result.pass).toBe(true);
+					});
+
+					it("The CSS property is found inside an embedded style", function(){
+						var element = jQuery("#computed");
+						var result = matcher.compare(element, "box-sizing");
+						expect(result.pass).toBe(true);
+					});
+
+					it("The CSS property is found inside an inline style and its value matches", function(){
+						var element = jQuery("#blockDisplay");
+						var result = matcher.compare(element, "display", "block");
+						expect(result.pass).toBe(true);
+					});
+
+					it("The CSS property is found inside an embedded style and its value matches", function(){
+						var element = jQuery("#computed");
+						var result = matcher.compare(element, "box-sizing", "border-box");
+						expect(result.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("The CSS property is not found", function(){
+						var element = jQuery("#blockDisplay");
+						var result = matcher.compare(element, "border-width");
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("CSS property: border-width not found");
+					});
+
+					it("The CSS property is found, but its value does not matches", function(){
+						var element = jQuery("#blockDisplay");
+						var result = matcher.compare(element, "display", "xxx");
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("CSS property: display does not match");
+					});
+
+					it("Only one argument is provided", function(){
+						var element = jQuery("<div id='x'></div>");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify the CSS property as string");
+					});
+
+				});
+
+			});
+
+		});
+
 	});
 
 });

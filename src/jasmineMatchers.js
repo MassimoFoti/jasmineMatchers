@@ -302,6 +302,39 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		};
 	};
 
+	jasmineMatchers.toHaveCss = function(){
+		return {
+			/**
+			 * @param {jQuery} element
+			 * @param {String} propertyName
+			 * @param {String} expectedValue
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(element, propertyName, expectedValue){
+				var result = {
+					pass: false
+				};
+				if(jQuery.type(propertyName) !== "string"){
+					result.message = "Please specify the CSS property as string";
+					return result;
+				}
+				// Second case is Chrome only
+				if(jQuery(element).css(propertyName) === "" || jQuery(element).css(propertyName) === "0px"){
+					result.message = "CSS property: " + propertyName + " not found";
+					return result;
+				}
+				if(hasProperty(jQuery(element).css(propertyName), expectedValue) === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "CSS property: " + propertyName + " does not match";
+					return result;
+				}
+			}
+		};
+	};
+
 	jasmine.getEnv().beforeEach(function(){
 		jasmine.getEnv().addMatchers(jasmineMatchers);
 	});
