@@ -2,6 +2,12 @@ describe("jasmineMatchers", function(){
 
 	"use strict";
 
+	beforeEach(function(){
+		jasmineFixtures.setup({
+			basePath: FIXTURES_BASE_PATH
+		});
+	});
+
 	it("Requires Jasmine and jQuery in order to work", function(){
 		expect(jasmine).toBeDefined();
 		expect(jQuery).toBeDefined();
@@ -26,7 +32,7 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toMatchDuckType();
 			});
 
-			describe("Given an object and another object to be used as duckType:", function(){
+			describe("Given an object and another object to be used as duckType", function(){
 
 				describe("Matches if:", function(){
 
@@ -96,7 +102,7 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toBeReadonly();
 			});
 
-			describe("Given an object and the name of one its properties:", function(){
+			describe("Given an object and the name of one its properties", function(){
 
 				describe("Matches if:", function(){
 
@@ -172,7 +178,7 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toBeMatchedBy();
 			});
 
-			describe("Given a jQuery object and a selector:", function(){
+			describe("Given a jQuery object and a selector", function(){
 
 				describe("Matches if:", function(){
 
@@ -208,6 +214,62 @@ describe("jasmineMatchers", function(){
 
 		});
 
+		describe(".toBeVisible()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toBeVisible();
+				jasmineFixtures.loadHTML("main.htm");
+			});
+
+			describe("Given a jQuery object", function(){
+
+				describe("Matches if:", function(){
+
+					it("The jQuery object is visible", function(){
+						var genericResult = matcher.compare(jQuery("#generic"), "class");
+						expect(genericResult.pass).toBe(true);
+						var blockResult = matcher.compare(jQuery("#blockDisplay"), "class");
+						expect(blockResult.pass).toBe(true);
+						var visibilityResult = matcher.compare(jQuery("#visibleVisibility"), "class");
+						expect(visibilityResult.pass).toBe(true);
+					});
+
+					it("The jQuery object CSS has both height and width set to zero", function(){
+						var zeroDimensionsResult = matcher.compare(jQuery("#zeroDimensions"), "class");
+						expect(zeroDimensionsResult.pass).toBe(true);
+					});
+
+					it("The jQuery object CSS contains: visibility: hidden (it takes space in the document)", function(){
+						var hiddenVisibilityResult = matcher.compare(jQuery("#hiddenVisibility"), "class");
+						expect(hiddenVisibilityResult.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("The jQuery object is not visible", function(){
+						var noneDisplayResult = matcher.compare(jQuery("#noneDisplay"), "class");
+						expect(noneDisplayResult.pass).toBe(false);
+						expect(noneDisplayResult.message).toBe("Element is not visible");
+
+					});
+
+					it("The jQuery object is not part of the current document DOM", function(){
+						var element = jQuery("<div></div>");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Element is not visible");
+					});
+
+				});
+
+			});
+
+		});
+
+
 		describe(".toHaveAttr()", function(){
 
 			var matcher;
@@ -215,7 +277,7 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toHaveAttr();
 			});
 
-			describe("Given a jQuery object, the name of an attribute and an optional value:", function(){
+			describe("Given a jQuery object, the name of an attribute and an optional value", function(){
 
 				describe("Matches if:", function(){
 
@@ -268,7 +330,7 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toHaveClass();
 			});
 
-			describe("Given a jQuery object and the name of a CSS class:", function(){
+			describe("Given a jQuery object and the name of a CSS class", function(){
 
 				describe("Matches if:", function(){
 

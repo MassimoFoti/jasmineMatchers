@@ -137,6 +137,28 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		};
 	};
 
+	jasmineMatchers.toBeVisible = function(){
+		return {
+			/**
+			 * @param {jQuery} element
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(element){
+				var result = {
+					pass: false
+				};
+				if(jQuery(element).is(":visible") === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Element is not visible";
+					return result;
+				}
+			}
+		};
+	};
+
 	jasmineMatchers.toHaveAttr = function(){
 		return {
 			/**
