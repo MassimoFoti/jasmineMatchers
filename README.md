@@ -13,7 +13,7 @@ Either:
 
 ## Custom matchers
 
-- `toMatchDuckType(object, duckType, [matchType])`
+- `toMatchDuckType(duckType, [matchType])`
   - Use [duck typing](https://en.wikipedia.org/wiki/Duck_typing) for type checking
   - matchType is an optional boolean argument, set it to false to not compare type of properties using $.type()
   - `expect({name: "Ciccio"}).toMatchDuckType({name: "Duck"})`
@@ -22,7 +22,7 @@ Either:
   - `expect({name: "Ciccio"}).not.toMatchDuckType({name: []})`
   - `expect({name: "Ciccio"}).toMatchDuckType({name: []}, false)`
   
-- `toHaveReadonly(parentObject, propertyName)`
+- `toHaveReadonly(propertyName)`
 ```javascript
   var myObj = {};
   Object.defineProperty(myObj, "name", {
