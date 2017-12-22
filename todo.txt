@@ -1,7 +1,8 @@
 - Write docs
+- Add release notes
+- Release version 0.1
 
 - Update to jQuery 3
-- Add release notes
 
 Version 2.0
 
