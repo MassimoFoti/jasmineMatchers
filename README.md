@@ -39,7 +39,7 @@ Either:
 - `toHaveClass(className)`
   - e.g. `expect($('<div class="test"></div>')).toHaveClass("test")
   
-- `toHaveCss(propertyName, expectedValue)``
+- `toHaveCss(propertyName, expectedValue)`
   - expectedValue is optional, if omitted it will check only if the computed style property exists
 
 ## Looking for having fixtures inside Jasmine?
