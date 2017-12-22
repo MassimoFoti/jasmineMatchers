@@ -10,3 +10,9 @@ Either:
 
 - Simply download _jasmineMatchers.min.js_ from [here](https://raw.github.com/MassimoFoti/jasmineMatchers/master/dist/jasmineMatchers.min.js) and include it in your Jasmine's test runner file. Remember to also include jQuery
 - Use Bower ```bower install jasmineMatchers```
+
+
+
+## Looking for having fixtures inside Jasmine?
+
+Take a look at [jasmineFixtures](https://github.com/MassimoFoti/jasmineFixtures````)
