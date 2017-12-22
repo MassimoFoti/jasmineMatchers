@@ -16,11 +16,11 @@ Either:
 - `toMatchDuckType(object, duckType, [matchType])`
   - Use [duck typing](https://en.wikipedia.org/wiki/Duck_typing) for type checking
   - matchType is an optional boolean argument, set it to false to not compare type of properties using $.type()
-  - e.g. `expect({name: "Ciccio"}).toMatchDuckType({name: "Duck"})`
-  - e.g. `expect({name: "Ciccio"}).toMatchDuckType({})`
-  - e.g. `expect({name: "Ciccio"}).not.toMatchDuckType({code: "007"})`
-  - e.g. `expect({name: "Ciccio"}).not.toMatchDuckType({name: []})`
-  - e.g. `expect({name: "Ciccio"}).toMatchDuckType({name: []}, false)`
+  - `expect({name: "Ciccio"}).toMatchDuckType({name: "Duck"})`
+  - `expect({name: "Ciccio"}).toMatchDuckType({})`
+  - `expect({name: "Ciccio"}).not.toMatchDuckType({code: "007"})`
+  - `expect({name: "Ciccio"}).not.toMatchDuckType({name: []})`
+  - `expect({name: "Ciccio"}).toMatchDuckType({name: []}, false)`
   
 - `toHaveReadonly(parentObject, propertyName)`
 ```javascript
@@ -45,20 +45,20 @@ Either:
 ## jQuery-based matchers
 
 - `toBeChecked()`
-  - e.g. `expect($('<input type="checkbox" checked="checked">')).toBeChecked()`
+  - `expect($('<input type="checkbox" checked="checked">')).toBeChecked()`
 
 - `toBeDisabled()`
-  - e.g. `expect('<input type="text" disabled="disabled">').toBeDisabled()`
+  - `expect('<input type="text" disabled="disabled">').toBeDisabled()`
 
 - `toBeEmpty()`
   - Pass if there is no child DOM element/s or text
 
 - `toBeMatchedBy(jQuerySelector)`
   - Check to see if the set of matched elements matches the given selector
-  - e.g.  `expect($('<div class='test'></div>')).toBeMatchedBy('.test')`
+  - `expect($('<div class='test'></div>')).toBeMatchedBy('.test')`
 
 - `toBeSelected()`
-  - e.g. `expect($('<option selected="selected"></option>')).toBeSelected()`
+  - `expect($('<option selected="selected"></option>')).toBeSelected()`
 
 - `toBeVisible()`
   - Elements are considered visible if they consume space in the document. Even if they have both width and height set to zero
@@ -68,7 +68,7 @@ Either:
   - expectedValue is optional, if omitted it will check only if attribute exists
 
 - `toHaveClass(className)`
-  - e.g. `expect($('<div class="test"></div>')).toHaveClass("test")`
+  - `expect($('<div class="test"></div>')).toHaveClass("test")`
   
 - `toHaveCss(propertyName, [expectedValue])`
   - expectedValue is optional, if omitted it will check only if the computed style property exists
