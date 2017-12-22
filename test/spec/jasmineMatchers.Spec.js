@@ -171,12 +171,15 @@ describe("jasmineMatchers", function(){
 
 	describe("Provides the following jQuery-based custom matchers for Jasmine:", function(){
 
+		beforeEach(function(){
+			jasmineFixtures.loadHTML("main.htm");
+		});
+
 		describe(".toBeChecked()", function(){
 
 			var matcher;
 			beforeEach(function(){
 				matcher = jasmineMatchers.toBeChecked();
-				jasmineFixtures.loadHTML("main.htm");
 			});
 
 			describe("Given a jQuery object", function(){
@@ -224,7 +227,6 @@ describe("jasmineMatchers", function(){
 			var matcher;
 			beforeEach(function(){
 				matcher = jasmineMatchers.toBeDisabled();
-				jasmineFixtures.loadHTML("main.htm");
 			});
 
 			describe("Given a jQuery object", function(){
@@ -343,7 +345,6 @@ describe("jasmineMatchers", function(){
 			var matcher;
 			beforeEach(function(){
 				matcher = jasmineMatchers.toBeVisible();
-				jasmineFixtures.loadHTML("main.htm");
 			});
 
 			describe("Given a jQuery object", function(){
