@@ -132,6 +132,28 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		};
 	};
 
+	jasmineMatchers.toBeDisabled = function(){
+		return {
+			/**
+			 * @param {jQuery} element
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(element){
+				var result = {
+					pass: false
+				};
+				if(jQuery(element).is(":disabled") === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Element is not disabled";
+					return result;
+				}
+			}
+		};
+	};
+
 	jasmineMatchers.toBeEmpty = function(){
 		return {
 			/**

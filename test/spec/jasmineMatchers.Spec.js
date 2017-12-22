@@ -219,6 +219,41 @@ describe("jasmineMatchers", function(){
 
 		});
 
+		describe(".toBeDisabled()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toBeDisabled();
+				jasmineFixtures.loadHTML("main.htm");
+			});
+
+			describe("Given a jQuery object", function(){
+
+				describe("Matches if:", function(){
+
+					it("The jQuery object is disabled", function(){
+						var element = jQuery("#disabled");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("The jQuery object is not disabled", function(){
+						var element = jQuery("#enabled");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Element is not disabled");
+					});
+
+				});
+
+			});
+
+		});
+
 		describe(".toBeEmpty()", function(){
 
 			var matcher;
