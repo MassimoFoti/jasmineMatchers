@@ -203,6 +203,28 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		};
 	};
 
+	jasmineMatchers.toBeSelected = function(){
+		return {
+			/**
+			 * @param {jQuery} element
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(element){
+				var result = {
+					pass: false
+				};
+				if(jQuery(element).is(":selected") === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Element is not selected";
+					return result;
+				}
+			}
+		};
+	};
+
 	jasmineMatchers.toBeVisible = function(){
 		return {
 			/**

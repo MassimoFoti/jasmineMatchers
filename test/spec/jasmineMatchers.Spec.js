@@ -340,6 +340,40 @@ describe("jasmineMatchers", function(){
 
 		});
 
+		describe(".toBeSelected()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toBeSelected();
+			});
+
+			describe("Given a jQuery object", function(){
+
+				describe("Matches if:", function(){
+
+					it("The jQuery object is selected", function(){
+						var element = jQuery("#selected");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("The jQuery object is not selected", function(){
+						var element = jQuery("#unselected");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Element is not selected");
+					});
+
+				});
+
+			});
+
+		});
+
 		describe(".toBeVisible()", function(){
 
 			var matcher;
