@@ -110,6 +110,50 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		return actualValue === expectedValue;
 	};
 
+	jasmineMatchers.toBeChecked = function(){
+		return {
+			/**
+			 * @param {jQuery} element
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(element){
+				var result = {
+					pass: false
+				};
+				if(jQuery(element).is(":checked") === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Element is not checked";
+					return result;
+				}
+			}
+		};
+	};
+
+	jasmineMatchers.toBeEmpty = function(){
+		return {
+			/**
+			 * @param {jQuery} element
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(element){
+				var result = {
+					pass: false
+				};
+				if(jQuery(element).is(":empty") === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Element is not empty";
+					return result;
+				}
+			}
+		};
+	};
+
 	jasmineMatchers.toBeMatchedBy = function(){
 		return {
 			/**

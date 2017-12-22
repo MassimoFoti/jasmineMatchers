@@ -171,6 +171,95 @@ describe("jasmineMatchers", function(){
 
 	describe("Provides the following jQuery-based custom matchers for Jasmine:", function(){
 
+		describe(".toBeChecked()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toBeChecked();
+				jasmineFixtures.loadHTML("main.htm");
+			});
+
+			describe("Given a jQuery object", function(){
+
+				describe("Matches if:", function(){
+
+					it("The jQuery object is a checked checkbox", function(){
+						var element = jQuery("#boxChecked");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(true);
+					});
+
+					it("The jQuery object is a checked radiobutton", function(){
+						var element = jQuery("#radioChecked");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("The jQuery object is an unchecked checkbox", function(){
+						var element = jQuery("#box");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Element is not checked");
+					});
+
+					it("The jQuery object is an unchecked radiobutton", function(){
+						var element = jQuery("#radio");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Element is not checked");
+					});
+
+				});
+
+			});
+
+		});
+
+		describe(".toBeEmpty()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toBeEmpty();
+			});
+
+			describe("Given a jQuery object", function(){
+
+				describe("Matches if:", function(){
+
+					it("The jQuery object is empty", function(){
+						var element = jQuery("<div></div>");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("The jQuery object contains child elements", function(){
+						var element = jQuery("<div><span></span></div>");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Element is not empty");
+					});
+
+					it("The jQuery object contains text", function(){
+						var element = jQuery("<div>test</div>");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Element is not empty");
+					});
+
+				});
+
+			});
+
+		});
+
 		describe(".toBeMatchedBy()", function(){
 
 			var matcher;
@@ -268,7 +357,6 @@ describe("jasmineMatchers", function(){
 			});
 
 		});
-
 
 		describe(".toHaveAttr()", function(){
 
