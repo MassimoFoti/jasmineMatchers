@@ -20,7 +20,27 @@ Either:
   - e.g. `expect({name: "Ciccio"}).toMatchDuckType({})`
   - e.g. `expect({name: "Ciccio"}).not.toMatchDuckType({code: "007"})`
   - e.g. `expect({name: "Ciccio"}).not.toMatchDuckType({name: []})`
-  - e.g. `expect({name: "Ciccio"}).toMatchDuckType({name: []}, false)`  
+  - e.g. `expect({name: "Ciccio"}).toMatchDuckType({name: []}, false)`
+  
+- `toHaveReadonly(parentObject, propertyName)`
+```javascript
+  var myObj = {};
+  Object.defineProperty(myObj, "name", {
+    enumerable: true,
+    configurable: false,
+    writable: false,
+    value: "Ciccio"
+  });
+  expect(myObj).toHaveReadonly("name");
+  
+  var frozenObj = {name: "Ciccio"};
+  Object.freeze(frozenObj);
+  expect(frozenObj).toHaveReadonly("name");
+  
+  var sealedObj = {name: "Ciccio"};
+  Object.freeze(sealedObj);
+  expect(sealedObj).not.toHaveReadonly("name"); 
+```   
 
 ## jQuery-based matchers
 
