@@ -23,24 +23,25 @@ Either:
   - `expect({name: "Ciccio"}).toMatchDuckType({name: []}, false)`
   
 - `toHaveReadonly(propertyName)`
-```javascript
-  var myObj = {};
-  Object.defineProperty(myObj, "name", {
-    enumerable: true,
-    configurable: false,
-    writable: false,
-    value: "Ciccio"
-  });
-  expect(myObj).toHaveReadonly("name");
-  
-  var frozenObj = {name: "Ciccio"};
-  Object.freeze(frozenObj);
-  expect(frozenObj).toHaveReadonly("name");
-  
-  var sealedObj = {name: "Ciccio"};
-  Object.freeze(sealedObj);
-  expect(sealedObj).not.toHaveReadonly("name"); 
-```   
+  - Check if the given property of the object is read-only
+	```javascript
+	  var myObj = {};
+	  Object.defineProperty(myObj, "name", {
+		enumerable: true,
+		configurable: false,
+		writable: false,
+		value: "Ciccio"
+	  });
+	  expect(myObj).toHaveReadonly("name");
+	  
+	  var frozenObj = {name: "Ciccio"};
+	  Object.freeze(frozenObj);
+	  expect(frozenObj).toHaveReadonly("name");
+	  
+	  var sealedObj = {name: "Ciccio"};
+	  Object.freeze(sealedObj);
+	  expect(sealedObj).not.toHaveReadonly("name"); 
+	```   
 
 ## jQuery-based matchers
 
