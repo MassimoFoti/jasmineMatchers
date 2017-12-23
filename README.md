@@ -74,6 +74,10 @@ Either:
 - `toHaveCss(propertyName, [expectedValue])`
   - expectedValue is optional, if omitted it will check only if the computed style property exists
 
+- `toHaveProp(propertyName, [expectedValue])`
+  - expectedValue is optional, if omitted it will check only if attribute exists
+    ([attributes vs. properties](http://api.jquery.com/prop/#prop-propertyName))
+
 ## Would you like to use fixtures inside Jasmine?
 
 Take a look at [jasmineFixtures](https://github.com/MassimoFoti/jasmineFixtures)

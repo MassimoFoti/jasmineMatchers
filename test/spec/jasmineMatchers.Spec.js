@@ -594,6 +594,59 @@ describe("jasmineMatchers", function(){
 
 		});
 
+		describe(".toHaveProp()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toHaveProp();
+			});
+
+			describe("Given a jQuery object, the name of a property and an optional value", function(){
+
+				describe("Matches if:", function(){
+
+					it("The property is found", function(){
+						var element = jQuery("#radioChecked");
+						var result = matcher.compare(element, "checked");
+						expect(result.pass).toBe(true);
+					});
+
+					it("The property is found and its value matches", function(){
+						var element = jQuery("#radioChecked");
+						var result = matcher.compare(element, "checked", true);
+						expect(result.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("The property is not found", function(){
+						var element = jQuery("#radioChecked");
+						var result = matcher.compare(element, "missing");
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Property: missing does not match");
+					});
+
+					it("The property is found, but its value does not matches", function(){
+						var element = jQuery("#radioChecked");
+						var result = matcher.compare(element, "checked", "false");
+						expect(result.pass).toBe(false);
+					});
+
+					it("Only one argument is provided", function(){
+						var element = jQuery("#generic");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify the property as string");
+					});
+
+				});
+
+			});
+
+		});
+
 	});
 
 });

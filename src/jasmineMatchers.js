@@ -18,7 +18,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 (function(){
 	"use strict";
 
-	jasmineMatchers.version = "0.1";
+	jasmineMatchers.version = "0.2";
 
 	/* Generic matchers */
 
@@ -329,6 +329,34 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 				}
 				else{
 					result.message = "CSS property: " + propertyName + " does not match";
+					return result;
+				}
+			}
+		};
+	};
+
+	jasmineMatchers.toHaveProp = function(){
+		return {
+			/**
+			 * @param {jQuery} element
+			 * @param {String} propertyName
+			 * @param {String} expectedValue
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(element, propertyName, expectedValue){
+				var result = {
+					pass: false
+				};
+				if(jQuery.type(propertyName) !== "string"){
+					result.message = "Please specify the property as string";
+					return result;
+				}
+				if(hasProperty(jQuery(element).prop(propertyName), expectedValue) === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Property: " + propertyName + " does not match";
 					return result;
 				}
 			}
