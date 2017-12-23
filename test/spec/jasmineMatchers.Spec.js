@@ -2,12 +2,6 @@ describe("jasmineMatchers", function(){
 
 	"use strict";
 
-	beforeEach(function(){
-		jasmineFixtures.setup({
-			basePath: FIXTURES_BASE_PATH
-		});
-	});
-
 	it("Requires Jasmine and jQuery in order to work", function(){
 		expect(jasmine).toBeDefined();
 		expect(jQuery).toBeDefined();
