@@ -76,4 +76,4 @@ Either:
 
 ## Would you like to use fixtures inside Jasmine?
 
-Take a look at [jasmineFixtures](https://github.com/MassimoFoti/jasmineFixtures````)
+Take a look at [jasmineFixtures](https://github.com/MassimoFoti/jasmineFixtures)
