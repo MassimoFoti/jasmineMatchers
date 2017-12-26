@@ -75,7 +75,7 @@ Either:
   - expectedValue is optional, if omitted it will check only if the computed style property exists
 
 - `toHaveProp(propertyName, [expectedValue])`
-  - expectedValue is optional, if omitted it will check only if attribute exists
+  - Use jQuery.prop() to check for [boolean attributes](https://www.w3.org/TR/html4/intro/sgmltut.html#h-3.3.4.2) expectedValue is optional, if omitted it will check only if attribute exists
     ([attributes vs. properties](http://api.jquery.com/prop/#prop-propertyName))
 
 ## Would you like to use fixtures inside Jasmine?
