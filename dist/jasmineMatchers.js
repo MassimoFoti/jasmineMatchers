@@ -1,5 +1,5 @@
 /*! 
-jasmineMatchers 0.2 2017-12-23T16:47:06.866Z
+jasmineMatchers 0.3 2017-12-26T08:43:34.374Z
 Copyright 2017 Massimo Foti (massimo@massimocorner.com)
 Licensed under the Apache License, Version 2.0 | http://www.apache.org/licenses/LICENSE-2.0
  */
@@ -23,9 +23,41 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 (function(){
 	"use strict";
 
-	jasmineMatchers.version = "0.2";
+	jasmineMatchers.version = "0.3";
 
 	/* Generic matchers */
+
+	jasmineMatchers.toHaveProperty = function(){
+		return {
+			/**
+			 * @param {Object} actual
+			 * @param {String} propertyName
+			 * @param {String} expectedValue
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual, propertyName, expectedValue){
+				var result = {
+					pass: false
+				};
+				if(jQuery.type(propertyName) !== "string"){
+					result.message = "Please specify the property as string";
+					return result;
+				}
+				if(actual[propertyName] === undefined){
+					result.message = "Property: " + propertyName + " not found";
+					return result;
+				}
+				if(hasProperty(actual[propertyName], expectedValue) === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Expected: " + propertyName + " to equal: " + expectedValue + " but current value is: " + actual[propertyName];
+					return result;
+				}
+			}
+		};
+	};
 
 	jasmineMatchers.toMatchDuckType = function(){
 		return {

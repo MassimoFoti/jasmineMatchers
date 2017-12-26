@@ -13,6 +13,9 @@ Either:
 
 ## Custom matchers
 
+- `toHaveProperty(propertyName, [expectedValue])`
+  - Check an object for the given property, expectedValue is optional, if omitted it will check only if property exists
+
 - `toMatchDuckType(duckType, [matchType])`
   - Use [duck typing](https://en.wikipedia.org/wiki/Duck_typing) for type checking
   - matchType is an optional boolean argument, set it to false to not compare type of properties using $.type()

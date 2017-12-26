@@ -19,6 +19,60 @@ describe("jasmineMatchers", function(){
 
 	describe("Provides the following custom matchers for Jasmine:", function(){
 
+		describe(".toHaveProperty()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toHaveProperty();
+			});
+
+			describe("Given an object, the name of a property and an optional value", function(){
+
+				describe("Matches if:", function(){
+
+					it("The property is found", function(){
+						var element = {name: "Ciccio"};
+						var result = matcher.compare(element, "name");
+						expect(result.pass).toBe(true);
+					});
+
+					it("The property is found and its value matches", function(){
+						var element = {name: "Ciccio"};
+						var result = matcher.compare(element, "name", "Ciccio");
+						expect(result.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("The property is not found", function(){
+						var element = {name: "Ciccio"};
+						var result = matcher.compare(element, "missing");
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Property: missing not found");
+					});
+
+					it("The property is found, but its value does not matches", function(){
+						var element = {name: "Ciccio"};
+						var result = matcher.compare(element, "name", "Another");
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected: name to equal: Another but current value is: Ciccio");
+					});
+
+					it("Only one argument is provided", function(){
+						var element = jQuery("<div id='x'></div>");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify the property as string");
+					});
+
+				});
+
+			});
+
+		});
+
 		describe(".toMatchDuckType()", function(){
 
 			var matcher;
