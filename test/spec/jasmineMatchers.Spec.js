@@ -73,76 +73,6 @@ describe("jasmineMatchers", function(){
 
 		});
 
-		describe(".toMatchDuckType()", function(){
-
-			var matcher;
-			beforeEach(function(){
-				matcher = jasmineMatchers.toMatchDuckType();
-			});
-
-			describe("Given an object and another object to be used as duckType", function(){
-
-				describe("Matches if:", function(){
-
-					it("The compared object contain the same set of properties as the duckType one, even if values are different", function(){
-						var result = matcher.compare({name: "Ciccio"}, {name: "Duck"});
-						expect(result.pass).toBe(true);
-					});
-
-					it("The compared object contain properties not available inside the duckType one", function(){
-						var result = matcher.compare({name: "Ciccio"}, {});
-						expect(result.pass).toBe(true);
-					});
-
-					it("Neither the object or the duckType contain any own property", function(){
-						var result = matcher.compare({}, {});
-						expect(result.pass).toBe(true);
-					});
-
-				});
-
-				describe("Fails if:", function(){
-
-					it("The compared objects are of different types", function(){
-						var result = matcher.compare({}, []);
-						expect(result.pass).toBe(false);
-						expect(result.message).toBe("Type mismatch, comparing: object vs array");
-					});
-
-					it("The duckType object contain properties not available inside the compared one", function(){
-						var result = matcher.compare({}, {name: "Ciccio"});
-						expect(result.pass).toBe(false);
-						expect(result.message).toBe("The following duck property is missing: .name");
-					});
-
-					it("The two object contain the same property but it is of different types", function(){
-						var result = matcher.compare({name: []}, {name: "Ciccio"});
-						expect(result.pass).toBe(false);
-						expect(result.message).toBe("Type of: .name does not match. Supposed to be: string");
-					});
-
-					it("Only one argument is provided", function(){
-						var result = matcher.compare({});
-						expect(result.pass).toBe(false);
-						expect(result.message).toBe("Please specify an instance of a duckType");
-					});
-
-				});
-
-				describe("Accept a boolean as third, optional argument", function(){
-
-					it("If set to false, the type of properties is not compared", function(){
-						var result = matcher.compare({name: []}, {name: "Ciccio"}, false);
-						expect(result.pass).toBe(true);
-						expect(result.message).toBeUndefined();
-					});
-
-				});
-
-			});
-
-		});
-
 		describe(".toHaveReadonly()", function(){
 
 			var matcher;
@@ -207,6 +137,76 @@ describe("jasmineMatchers", function(){
 						var result = matcher.compare({});
 						expect(result.pass).toBe(false);
 						expect(result.message).toBe("Please specify the name of the property as string");
+					});
+
+				});
+
+			});
+
+		});
+
+		describe(".toMatchDuckType()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toMatchDuckType();
+			});
+
+			describe("Given an object and another object to be used as duckType", function(){
+
+				describe("Matches if:", function(){
+
+					it("The compared object contain the same set of properties as the duckType one, even if values are different", function(){
+						var result = matcher.compare({name: "Ciccio"}, {name: "Duck"});
+						expect(result.pass).toBe(true);
+					});
+
+					it("The compared object contain properties not available inside the duckType one", function(){
+						var result = matcher.compare({name: "Ciccio"}, {});
+						expect(result.pass).toBe(true);
+					});
+
+					it("Neither the object or the duckType contain any own property", function(){
+						var result = matcher.compare({}, {});
+						expect(result.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("The compared objects are of different types", function(){
+						var result = matcher.compare({}, []);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Type mismatch, comparing: object vs array");
+					});
+
+					it("The duckType object contain properties not available inside the compared one", function(){
+						var result = matcher.compare({}, {name: "Ciccio"});
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("The following duck property is missing: .name");
+					});
+
+					it("The two object contain the same property but it is of different types", function(){
+						var result = matcher.compare({name: []}, {name: "Ciccio"});
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Type of: .name does not match. Supposed to be: string");
+					});
+
+					it("Only one argument is provided", function(){
+						var result = matcher.compare({});
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify an instance of a duckType");
+					});
+
+				});
+
+				describe("Accept a boolean as third, optional argument", function(){
+
+					it("If set to false, the type of properties is not compared", function(){
+						var result = matcher.compare({name: []}, {name: "Ciccio"}, false);
+						expect(result.pass).toBe(true);
+						expect(result.message).toBeUndefined();
 					});
 
 				});

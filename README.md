@@ -16,15 +16,6 @@ Either:
 - `toHaveProperty(propertyName, [expectedValue])`
   - Check an object for the given property, expectedValue is optional, if omitted it will check only if property exists
 
-- `toMatchDuckType(duckType, [matchType])`
-  - Use [duck typing](https://en.wikipedia.org/wiki/Duck_typing) for type checking
-  - matchType is an optional boolean argument, set it to false to not compare type of properties using $.type()
-  - `expect({name: "Ciccio"}).toMatchDuckType({name: "Duck"})`
-  - `expect({name: "Ciccio"}).toMatchDuckType({})`
-  - `expect({name: "Ciccio"}).not.toMatchDuckType({code: "007"})`
-  - `expect({name: "Ciccio"}).not.toMatchDuckType({name: []})`
-  - `expect({name: "Ciccio"}).toMatchDuckType({name: []}, false)`
-  
 - `toHaveReadonly(propertyName)`
   - Check if the given property of the object is read-only
 	```javascript
@@ -44,7 +35,16 @@ Either:
 	  var sealedObj = {name: "Ciccio"};
 	  Object.seal(sealedObj);
 	  expect(sealedObj).not.toHaveReadonly("name"); 
-	```   
+	``` 
+  
+- `toMatchDuckType(duckType, [matchType])`
+  - Use [duck typing](https://en.wikipedia.org/wiki/Duck_typing) for type checking
+  - matchType is an optional boolean argument, set it to false to not compare type of properties using $.type()
+  - `expect({name: "Ciccio"}).toMatchDuckType({name: "Duck"})`
+  - `expect({name: "Ciccio"}).toMatchDuckType({})`
+  - `expect({name: "Ciccio"}).not.toMatchDuckType({code: "007"})`
+  - `expect({name: "Ciccio"}).not.toMatchDuckType({name: []})`
+  - `expect({name: "Ciccio"}).toMatchDuckType({name: []}, false)`
 
 ## jQuery-based matchers
 

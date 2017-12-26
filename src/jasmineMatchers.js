@@ -54,6 +54,36 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		};
 	};
 
+	jasmineMatchers.toHaveReadonly = function(){
+		return {
+			/**
+			 * @param {Object} parentObject
+			 * @param {String} property
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(parentObject, property){
+				var result = {
+					pass: false
+				};
+				if(jQuery.type(property) !== "string"){
+					result.message = "Please specify the name of the property as string";
+					return result;
+				}
+				var desc = Object.getOwnPropertyDescriptor(parentObject, property);
+				if(desc === undefined){
+					result.message = "Unable to find property: " + property;
+					return result;
+				}
+				if(desc.writable === false){
+					result.pass = true;
+					return result;
+				}
+				result.message = "Property: " + property + " is not readonly";
+				return result;
+			}
+		};
+	};
+
 	jasmineMatchers.toMatchDuckType = function(){
 		return {
 			/**
@@ -98,36 +128,6 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					}
 				}
 				result.pass = true;
-				return result;
-			}
-		};
-	};
-
-	jasmineMatchers.toHaveReadonly = function(){
-		return {
-			/**
-			 * @param {Object} parentObject
-			 * @param {String} property
-			 * @return {jasmineMatchers.result}
-			 */
-			compare: function(parentObject, property){
-				var result = {
-					pass: false
-				};
-				if(jQuery.type(property) !== "string"){
-					result.message = "Please specify the name of the property as string";
-					return result;
-				}
-				var desc = Object.getOwnPropertyDescriptor(parentObject, property);
-				if(desc === undefined){
-					result.message = "Unable to find property: " + property;
-					return result;
-				}
-				if(desc.writable === false){
-					result.pass = true;
-					return result;
-				}
-				result.message = "Property: " + property + " is not readonly";
 				return result;
 			}
 		};
