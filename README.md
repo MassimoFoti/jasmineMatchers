@@ -39,7 +39,7 @@ Either:
 	  expect(frozenObj).toHaveReadonly("name");
 	  
 	  var sealedObj = {name: "Ciccio"};
-	  Object.freeze(sealedObj);
+	  Object.seal(sealedObj);
 	  expect(sealedObj).not.toHaveReadonly("name"); 
 	```   
 
