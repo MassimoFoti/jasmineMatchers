@@ -57,11 +57,11 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveReadonly = function(){
 		return {
 			/**
-			 * @param {Object} parentObject
+			 * @param {Object} actual
 			 * @param {String} property
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(parentObject, property){
+			compare: function(actual, property){
 				var result = {
 					pass: false
 				};
@@ -69,7 +69,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify the name of the property as string";
 					return result;
 				}
-				var desc = Object.getOwnPropertyDescriptor(parentObject, property);
+				var desc = Object.getOwnPropertyDescriptor(actual, property);
 				if(desc === undefined){
 					result.message = "Unable to find property: " + property;
 					return result;
@@ -145,14 +145,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeChecked = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element){
+			compare: function(actual){
 				var result = {
 					pass: false
 				};
-				if(jQuery(element).is(":checked") === true){
+				if(jQuery(actual).is(":checked") === true){
 					result.pass = true;
 					return result;
 				}
@@ -167,14 +167,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeDisabled = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element){
+			compare: function(actual){
 				var result = {
 					pass: false
 				};
-				if(jQuery(element).is(":disabled") === true){
+				if(jQuery(actual).is(":disabled") === true){
 					result.pass = true;
 					return result;
 				}
@@ -189,14 +189,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeEmpty = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element){
+			compare: function(actual){
 				var result = {
 					pass: false
 				};
-				if(jQuery(element).is(":empty") === true){
+				if(jQuery(actual).is(":empty") === true){
 					result.pass = true;
 					return result;
 				}
@@ -211,11 +211,11 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeMatchedBy = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @param {String} selector
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element, selector){
+			compare: function(actual, selector){
 				var result = {
 					pass: false
 				};
@@ -223,7 +223,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify the selector as string";
 					return result;
 				}
-				if(jQuery(element).filter(selector).length > 0){
+				if(jQuery(actual).filter(selector).length > 0){
 					result.pass = true;
 					return result;
 				}
@@ -238,14 +238,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeSelected = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element){
+			compare: function(actual){
 				var result = {
 					pass: false
 				};
-				if(jQuery(element).is(":selected") === true){
+				if(jQuery(actual).is(":selected") === true){
 					result.pass = true;
 					return result;
 				}
@@ -260,14 +260,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeVisible = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element){
+			compare: function(actual){
 				var result = {
 					pass: false
 				};
-				if(jQuery(element).is(":visible") === true){
+				if(jQuery(actual).is(":visible") === true){
 					result.pass = true;
 					return result;
 				}
@@ -282,12 +282,12 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveAttr = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @param {String} attributeName
 			 * @param {String} expectedValue
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element, attributeName, expectedValue){
+			compare: function(actual, attributeName, expectedValue){
 				var result = {
 					pass: false
 				};
@@ -295,7 +295,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify the attribute as string";
 					return result;
 				}
-				if(hasProperty(jQuery(element).attr(attributeName), expectedValue) === true){
+				if(hasProperty(jQuery(actual).attr(attributeName), expectedValue) === true){
 					result.pass = true;
 					return result;
 				}
@@ -310,11 +310,11 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveClass = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @param {String} className
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element, className){
+			compare: function(actual, className){
 				var result = {
 					pass: false
 				};
@@ -322,7 +322,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify the name of the CSS class as string";
 					return result;
 				}
-				if(jQuery(element).hasClass(className) === true){
+				if(jQuery(actual).hasClass(className) === true){
 					result.pass = true;
 					return result;
 				}
@@ -337,12 +337,12 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveCss = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @param {String} propertyName
 			 * @param {String} expectedValue
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element, propertyName, expectedValue){
+			compare: function(actual, propertyName, expectedValue){
 				var result = {
 					pass: false
 				};
@@ -351,11 +351,11 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					return result;
 				}
 				// Second case is Chrome only
-				if(jQuery(element).css(propertyName) === "" || jQuery(element).css(propertyName) === "0px"){
+				if(jQuery(actual).css(propertyName) === "" || jQuery(actual).css(propertyName) === "0px"){
 					result.message = "CSS property: " + propertyName + " not found";
 					return result;
 				}
-				if(hasProperty(jQuery(element).css(propertyName), expectedValue) === true){
+				if(hasProperty(jQuery(actual).css(propertyName), expectedValue) === true){
 					result.pass = true;
 					return result;
 				}
@@ -370,12 +370,12 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveProp = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @param {String} propertyName
 			 * @param {String} expectedValue
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element, propertyName, expectedValue){
+			compare: function(actual, propertyName, expectedValue){
 				var result = {
 					pass: false
 				};
@@ -383,7 +383,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify the property as string";
 					return result;
 				}
-				if(hasProperty(jQuery(element).prop(propertyName), expectedValue) === true){
+				if(hasProperty(jQuery(actual).prop(propertyName), expectedValue) === true){
 					result.pass = true;
 					return result;
 				}
