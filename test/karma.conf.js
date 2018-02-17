@@ -48,7 +48,7 @@ module.exports = function(config) {
 			]
 		},
 
-		reporters: ["progress", "html", "coverage"],
+		reporters: ["progress", "coverage"],
 
 		// web server port
 		port: 9876,
