@@ -1,8 +1,19 @@
 - Update to jQuery 3
 
-- Add DOM based matchers
 
-Version 2.0
+ADDITIONAL MATCHERS:
+
+- toBeFalse()
+- toBeTrue()
+
+- toBeInstanceOf()
+
+- toBeExtensible()
+- toBeFrozen()
+- toBeSealed()
+
+
+VERSION 2.0
 
 - Drop support for IE 9/10
 - Use const/let
