@@ -73,11 +73,11 @@ describe("jasmineMatchers", function(){
 
 		});
 
-		describe(".toHaveReadonly()", function(){
+		describe(".toHaveReadonlyProperty()", function(){
 
 			var matcher;
 			beforeEach(function(){
-				matcher = jasmineMatchers.toHaveReadonly();
+				matcher = jasmineMatchers.toHaveReadonlyProperty();
 			});
 
 			describe("Given an object and the name of one its properties", function(){

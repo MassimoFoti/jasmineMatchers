@@ -54,7 +54,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		};
 	};
 
-	jasmineMatchers.toHaveReadonly = function(){
+	jasmineMatchers.toHaveReadonlyProperty = function(){
 		return {
 			/**
 			 * @param {Object} actual
