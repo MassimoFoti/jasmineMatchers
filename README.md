@@ -13,10 +13,49 @@ Either:
 
 ## Custom matchers
 
+- `toBeExtensible()`
+  - Check that the tested object is extensible
+    
+    Objects are extensible by default. An object can be marked as non-extensible using:
+    - `Object.preventExtensions()`,
+    - `Object.seal()`,
+    - `Object.freeze()`
+    
+    **Important**: This matcher consider primitives (`null`, `undefined`, numbers, strings and booleans) as non extensible objects
+
+- `toBeFalse()`
+  - Check that the tested object is strictly equal to `false`
+  
+- `toBeFrozen()`
+  - Check that the tested object is frozen
+    
+    **Important**: This matcher consider primitives (`null`, `undefined`, numbers, strings and booleans) as non frozen objects  
+  
+- `toBeInstanceOf(object)`
+  - Check that the prototype property of the tested object appears anywhere in the prototype chain of the given object
+	```javascript
+	  var Car = function(make, model, year){
+		this.make = make;
+		this.model = model;
+		this.year = year;
+	  };
+	  var auto = new Car("NSU", "Prinz", 1958);
+	  expect(auto).toBeInstanceOf(Car); 
+	  expect(auto).toBeInstanceOf(Object);
+	```   
+
+- `toBeSealed()`
+  - Check that the tested object is sealed
+    
+    **Important**: This matcher consider primitives (`null`, `undefined`, numbers, strings and booleans) as non sealed objects
+ 
+- `toBeTrue()`
+  - Check that the tested object is strictly equal to `true`  
+
 - `toHaveProperty(propertyName, [expectedValue])`
   - Check an object for the given property, expectedValue is optional, if omitted it will check only if property exists
 
-- `toHaveReadonly(propertyName)`
+- `toHaveReadonlyProperty(propertyName)`
   - Check if the given property of the object is read-only
 	```javascript
 	  var myObj = {};
@@ -26,15 +65,15 @@ Either:
 		writable: false,
 		value: "Ciccio"
 	  });
-	  expect(myObj).toHaveReadonly("name");
+	  expect(myObj).toHaveReadonlyProperty("name");
 	  
 	  var frozenObj = {name: "Ciccio"};
 	  Object.freeze(frozenObj);
-	  expect(frozenObj).toHaveReadonly("name");
+	  expect(frozenObj).toHaveReadonlyProperty("name");
 	  
 	  var sealedObj = {name: "Ciccio"};
 	  Object.seal(sealedObj);
-	  expect(sealedObj).not.toHaveReadonly("name"); 
+	  expect(sealedObj).not.toHaveReadonlyProperty("name"); 
 	``` 
   
 - `toMatchDuckType(duckType, [matchType])`
