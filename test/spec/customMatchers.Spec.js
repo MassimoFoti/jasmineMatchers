@@ -66,6 +66,55 @@ describe("jasmineMatchers", function(){
 
 		});
 
+		describe(".toBeInstanceOf()", function(){
+
+			var matcher, Car, auto;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toBeInstanceOf();
+				Car = function(make, model, year){
+					this.make = make;
+					this.model = model;
+					this.year = year;
+				};
+				auto = new Car("NSU", "Prinz", 1958);
+			});
+
+			describe("Given an actual value and an object", function(){
+
+				describe("Matches if:", function(){
+
+					it("The prototype property of the actual value appears anywhere in the prototype chain of the object", function(){
+						var carResult = matcher.compare(auto, Car);
+						expect(carResult.pass).toBe(true);
+
+						var objResult = matcher.compare(auto, Object);
+						expect(objResult.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("Only one argument is provided", function(){
+						var result = matcher.compare(auto);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify the object to test against");
+					});
+
+					it("The prototype property of the actual value does not appears anywhere in the prototype chain of the object", function(){
+						var MockConstructor = function(){
+						};
+						var mockIstance = new MockConstructor();
+						var result = matcher.compare(mockIstance, Car);
+						expect(result.pass).toBe(false);
+					});
+
+				});
+
+			});
+
+		});
+
 		describe(".toBeTrue()", function(){
 
 			var matcher;
@@ -170,7 +219,7 @@ describe("jasmineMatchers", function(){
 					});
 
 					it("Only one argument is provided", function(){
-						var element = jQuery("<div id='x'></div>");
+						var element = jQuery("<div id=\"x\"></div>");
 						var result = matcher.compare(element);
 						expect(result.pass).toBe(false);
 						expect(result.message).toBe("Please specify the property as string");

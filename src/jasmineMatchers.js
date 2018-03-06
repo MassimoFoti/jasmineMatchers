@@ -44,6 +44,33 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		};
 	};
 
+	jasmineMatchers.toBeInstanceOf = function(){
+		return {
+			/**
+			 * @param {Object} actual
+			 * @param {Object} type
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual, type){
+				var result = {
+					pass: false
+				};
+				if(type === undefined){
+					result.message = "Please specify the object to test against";
+					return result;
+				}
+				if(actual instanceof type === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Expected: " + actual + " to be instanceof of: " + type;
+					return result;
+				}
+			}
+		};
+	};
+
 	jasmineMatchers.toBeTrue = function(){
 		return {
 			/**
