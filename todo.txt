@@ -1,6 +1,3 @@
-- Update to jQuery 3
-
-
 ADDITIONAL MATCHERS:
 
 - toBeFalse()
