@@ -4,7 +4,6 @@
 ADDITIONAL MATCHERS:
 
 - toBeFalse()
-- toBeTrue()
 
 - toBeInstanceOf()
 

@@ -4,6 +4,68 @@ describe("jasmineMatchers", function(){
 
 	describe("Provides the following custom matchers for Jasmine:", function(){
 
+		describe(".toBeTrue()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toBeTrue();
+			});
+
+			describe("Given an actual value", function(){
+
+				describe("Matches if the actual value is:", function(){
+
+					it("Strictly equal to true", function(){
+						var result = matcher.compare(true);
+						expect(result.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if the actual value is:", function(){
+
+					it("false", function(){
+						var result = matcher.compare(false);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected: false to equal: true");
+					});
+
+					it("null", function(){
+						var result = matcher.compare(null);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected: null to equal: true");
+					});
+
+					it("undefined", function(){
+						var result = matcher.compare(undefined);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected: undefined to equal: true");
+					});
+
+					it("an empty string", function(){
+						var result = matcher.compare("");
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected:  to equal: true");
+					});
+
+					it("an empty array", function(){
+						var result = matcher.compare([]);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected:  to equal: true");
+					});
+
+					it("an empty plain object", function(){
+						var result = matcher.compare({});
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected: [object Object] to equal: true");
+					});
+
+				});
+
+			});
+
+		});
+
 		describe(".toHaveProperty()", function(){
 
 			var matcher;
