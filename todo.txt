@@ -7,7 +7,7 @@ DOM BASED MATCHERS:
 
 - toBeChecked()
 - toBeDisabled()
-- toBeDOMElement(tagName)
+- toBeElement(tagName)
 - toBeEmpty()
 - toBeSelected()
 - toBeVisible()?
