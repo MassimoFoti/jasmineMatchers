@@ -22,6 +22,28 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 
 	/* Generic matchers */
 
+	jasmineMatchers.toBeFalse = function(){
+		return {
+			/**
+			 * @param {Object} actual
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual){
+				var result = {
+					pass: false
+				};
+				if(actual === false){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Expected: " + actual + " to equal: false";
+					return result;
+				}
+			}
+		};
+	};
+
 	jasmineMatchers.toBeTrue = function(){
 		return {
 			/**
