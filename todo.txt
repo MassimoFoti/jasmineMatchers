@@ -1,10 +1,5 @@
 Release 0.4
 
-ADDITIONAL MATCHERS:
-
-- toBeFrozen()
-
-
 VERSION 2.0
 
 - Drop support for IE 9/10

@@ -92,6 +92,34 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		};
 	};
 
+	jasmineMatchers.toBeFrozen = function(){
+		return {
+			/**
+			 * @param {Object} actual
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual){
+				var result = {
+					pass: false
+				};
+				// Primitive values are not frozen in older browser (IE11 and before)
+				if(isPrimitive(actual) === true){
+					result.pass = false;
+					result.message = "Expected: " + actual + " to be frozen";
+					return result;
+				}
+				if(Object.isFrozen(actual) === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Expected: " + actual + " to be frozen";
+					return result;
+				}
+			}
+		};
+	};
+
 	jasmineMatchers.toBeInstanceOf = function(){
 		return {
 			/**

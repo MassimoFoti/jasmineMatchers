@@ -150,6 +150,70 @@ describe("jasmineMatchers", function(){
 
 		});
 
+		describe(".toBeFrozen()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toBeFrozen();
+			});
+
+			describe("Given an object", function(){
+
+				describe("Matches if:", function(){
+
+					it("The object is frozen", function(){
+						var actual = {};
+						Object.freeze(actual);
+						var result = matcher.compare(actual);
+						expect(result.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if the object is:", function(){
+
+					it("not frozen", function(){
+						var result = matcher.compare({});
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected: [object Object] to be frozen");
+					});
+
+					it("null", function(){
+						var result = matcher.compare(null);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected: null to be frozen");
+					});
+
+					it("undefined", function(){
+						var result = matcher.compare(undefined);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected: undefined to be frozen");
+					});
+
+					it("a boolean", function(){
+						var trueResult = matcher.compare(true);
+						expect(trueResult.pass).toBe(false);
+						expect(trueResult.message).toBe("Expected: true to be frozen");
+						var falseResult = matcher.compare(false);
+						expect(falseResult.pass).toBe(false);
+						expect(falseResult.message).toBe("Expected: false to be frozen");
+					});
+
+					it("a number or a string", function(){
+						var stringResult = matcher.compare("test");
+						expect(stringResult.pass).toBe(false);
+						expect(stringResult.message).toBe("Expected: test to be frozen");
+						var numberResult = matcher.compare(9);
+						expect(numberResult.pass).toBe(false);
+						expect(numberResult.message).toBe("Expected: 9 to be frozen");
+					});
+
+				});
+
+			});
+
+		});
+
 		describe(".toBeInstanceOf()", function(){
 
 			var matcher, Car, auto;
