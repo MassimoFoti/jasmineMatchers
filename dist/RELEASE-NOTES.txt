@@ -5,6 +5,7 @@ NEW FEATURES:
 * jasmineMatchers.toBeExtensible()
 * jasmineMatchers.toBeInstanceOf()
 * jasmineMatchers.toBeFalse()
+* jasmineMatchers.toBeSealed()
 * jasmineMatchers.toBeTrue()
 
 CHANGES:
