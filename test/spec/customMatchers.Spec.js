@@ -4,6 +4,90 @@ describe("jasmineMatchers", function(){
 
 	describe("Provides the following custom matchers for Jasmine:", function(){
 
+		describe(".toBeExtensible()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toBeExtensible();
+			});
+
+			describe("Given an object", function(){
+
+				describe("Matches if:", function(){
+
+					it("The object is extensible", function(){
+						var result = matcher.compare({});
+						expect(result.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("Object.preventExtensions() as been called on the object", function(){
+						var actual = {};
+						Object.preventExtensions(actual);
+						var result = matcher.compare(actual);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected: [object Object] to be extensible");
+					});
+
+				});
+
+				describe("Fails if the object is:", function(){
+
+					it("frozen", function(){
+						var actual = {};
+						Object.freeze(actual);
+						var result = matcher.compare(actual);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected: [object Object] to be extensible");
+					});
+
+					it("sealed", function(){
+						var actual = {};
+						Object.seal(actual);
+						var result = matcher.compare(actual);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected: [object Object] to be extensible");
+					});
+
+					it("null", function(){
+						var result = matcher.compare(null);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected: null to be extensible");
+					});
+
+					it("undefined", function(){
+						var result = matcher.compare(undefined);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Expected: undefined to be extensible");
+					});
+
+					it("a boolean", function(){
+						var trueResult = matcher.compare(true);
+						expect(trueResult.pass).toBe(false);
+						expect(trueResult.message).toBe("Expected: true to be extensible");
+						var falseResult = matcher.compare(false);
+						expect(falseResult.pass).toBe(false);
+						expect(falseResult.message).toBe("Expected: false to be extensible");
+					});
+
+					it("a number or a string", function(){
+						var stringResult = matcher.compare("test");
+						expect(stringResult.pass).toBe(false);
+						expect(stringResult.message).toBe("Expected: test to be extensible");
+						var numberResult = matcher.compare(9);
+						expect(numberResult.pass).toBe(false);
+						expect(numberResult.message).toBe("Expected: 9 to be extensible");
+					});
+
+				});
+
+			});
+
+		});
+
 		describe(".toBeFalse()", function(){
 
 			var matcher;

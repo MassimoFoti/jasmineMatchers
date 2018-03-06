@@ -2,6 +2,7 @@
 Release 0.5
 ---------------------------------------------------------------------
 NEW FEATURES:
+* jasmineMatchers.toBeExtensible()
 * jasmineMatchers.toBeInstanceOf()
 * jasmineMatchers.toBeFalse()
 * jasmineMatchers.toBeTrue()

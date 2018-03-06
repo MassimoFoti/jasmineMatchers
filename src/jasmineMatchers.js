@@ -18,9 +18,57 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 (function(){
 	"use strict";
 
-	jasmineMatchers.version = "0.3";
+	jasmineMatchers.version = "0.4";
 
 	/* Generic matchers */
+
+	var isPrimitive = function(actual){
+		// Boolean
+		if(actual === false || actual === true){
+			return true;
+		}
+		// Nill
+		if(actual === null || actual === undefined){
+			return true;
+		}
+		// Number
+		if(typeof actual === "number"){
+			return true;
+		}
+		// String
+		if(typeof actual === "string"){
+			return true;
+		}
+		return false;
+	};
+
+	jasmineMatchers.toBeExtensible = function(){
+		return {
+			/**
+			 * @param {Object} actual
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual){
+				var result = {
+					pass: false
+				};
+				// Primitive values are not frozen in older browser (IE11 and before)
+				if(isPrimitive(actual) === true){
+					result.pass = false;
+					result.message = "Expected: " + actual + " to be extensible";
+					return result;
+				}
+				if(Object.isExtensible(actual) === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Expected: " + actual + " to be extensible";
+					return result;
+				}
+			}
+		};
+	};
 
 	jasmineMatchers.toBeFalse = function(){
 		return {
