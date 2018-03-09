@@ -219,33 +219,37 @@ describe("jasmineMatchers", function(){
 				describe("Matches if:", function(){
 
 					it("The jQuery object is visible", function(){
-						var genericResult = matcher.compare(jQuery("#generic"), "class");
+						var genericResult = matcher.compare(jQuery("#generic"));
 						expect(genericResult.pass).toBe(true);
-						var blockResult = matcher.compare(jQuery("#blockDisplay"), "class");
+						var blockResult = matcher.compare(jQuery("#blockDisplay"));
 						expect(blockResult.pass).toBe(true);
-						var visibilityResult = matcher.compare(jQuery("#visibleVisibility"), "class");
+						var visibilityResult = matcher.compare(jQuery("#visibleVisibility"));
 						expect(visibilityResult.pass).toBe(true);
 					});
 
 					it("The jQuery object CSS has both height and width set to zero", function(){
-						var zeroDimensionsResult = matcher.compare(jQuery("#zeroDimensions"), "class");
+						var zeroDimensionsResult = matcher.compare(jQuery("#zeroDimensions"));
 						expect(zeroDimensionsResult.pass).toBe(true);
 					});
 
 					it("The jQuery object CSS contains: visibility: hidden (it takes space in the document)", function(){
-						var hiddenVisibilityResult = matcher.compare(jQuery("#hiddenVisibility"), "class");
+						var hiddenVisibilityResult = matcher.compare(jQuery("#hiddenVisibility"));
 						expect(hiddenVisibilityResult.pass).toBe(true);
+					});
+
+					it("The jQuery object CSS contains: opacity: 0 (it takes space in the document)", function(){
+						var opacityResult = matcher.compare(jQuery("#zeroOpacity"));
+						expect(opacityResult.pass).toBe(true);
 					});
 
 				});
 
 				describe("Fails if:", function(){
 
-					it("The jQuery object is not visible", function(){
-						var noneDisplayResult = matcher.compare(jQuery("#noneDisplay"), "class");
+					it("The jQuery object CSS contains display: none", function(){
+						var noneDisplayResult = matcher.compare(jQuery("#noneDisplay"));
 						expect(noneDisplayResult.pass).toBe(false);
 						expect(noneDisplayResult.message).toBe("Element is not visible");
-
 					});
 
 					it("The jQuery object is not part of the current document DOM", function(){
