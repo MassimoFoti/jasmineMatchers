@@ -1,21 +1,6 @@
+- Document and test jQuery/DOM interoperability
+
 - Release 0.4
-
-- Rename jQuery based matchers to avoid name clashes
-  Use $ as prefix?
-
-DOM BASED MATCHERS:
-
-- toBeChecked()
-- toBeDisabled()
-- toBeElement(tagName)
-- toBeEmpty()
-- toBeSelected()
-- toBeVisible()?
-- toHaveAttr()
-- toHaveCss()
-- toHaveProp()
-
-- toBeMatchedBy(querySelector) IE11+
 
 VERSION 2.0
 
