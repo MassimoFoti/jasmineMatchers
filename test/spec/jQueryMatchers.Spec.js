@@ -252,6 +252,12 @@ describe("jasmineMatchers", function(){
 						expect(noneDisplayResult.message).toBe("Element is not visible");
 					});
 
+					it("The jQuery object CSS has a parent with display: none", function(){
+						var noneDisplayResult = matcher.compare(jQuery("#hiddenByParent"));
+						expect(noneDisplayResult.pass).toBe(false);
+						expect(noneDisplayResult.message).toBe("Element is not visible");
+					});
+
 					it("The jQuery object is not part of the current document DOM", function(){
 						var element = jQuery("<div></div>");
 						var result = matcher.compare(element);
