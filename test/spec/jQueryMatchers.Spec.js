@@ -15,7 +15,7 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toBeChecked();
 			});
 
-			describe("Given a jQuery object", function(){
+			describe("Given a jQuery object or an HTMLElement", function(){
 
 				describe("Matches if:", function(){
 
@@ -23,6 +23,10 @@ describe("jasmineMatchers", function(){
 						var element = jQuery("#boxChecked");
 						var result = matcher.compare(element);
 						expect(result.pass).toBe(true);
+
+						var node = document.getElementById("boxChecked");
+						var nodeResult = matcher.compare(node);
+						expect(nodeResult.pass).toBe(true);
 					});
 
 					it("The jQuery object is a checked radiobutton", function(){
@@ -62,7 +66,7 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toBeDisabled();
 			});
 
-			describe("Given a jQuery object", function(){
+			describe("Given a jQuery object or an HTMLElement", function(){
 
 				describe("Matches if:", function(){
 
@@ -70,6 +74,10 @@ describe("jasmineMatchers", function(){
 						var element = jQuery("#disabled");
 						var result = matcher.compare(element);
 						expect(result.pass).toBe(true);
+
+						var node = document.getElementById("disabled");
+						var nodeResult = matcher.compare(node);
+						expect(nodeResult.pass).toBe(true);
 					});
 
 				});
@@ -96,14 +104,18 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toBeEmpty();
 			});
 
-			describe("Given a jQuery object", function(){
+			describe("Given a jQuery object or an HTMLElement", function(){
 
 				describe("Matches if:", function(){
 
 					it("The jQuery object is empty", function(){
-						var element = jQuery("<div></div>");
+						var element = jQuery("#generic");
 						var result = matcher.compare(element);
 						expect(result.pass).toBe(true);
+
+						var node = document.getElementById("generic");
+						var nodeResult = matcher.compare(node);
+						expect(nodeResult.pass).toBe(true);
 					});
 
 				});
@@ -137,16 +149,20 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toBeMatchedBy();
 			});
 
-			describe("Given a jQuery object and a selector", function(){
+			describe("Given a jQuery object or an HTMLElement and a selector", function(){
 
 				describe("Matches if:", function(){
 
 					it("The jQuery object matches the selector", function(){
-						var element = jQuery("<div class='test'></div>");
+						var element = jQuery("#generic");
 						var result = matcher.compare(element, "div");
 						expect(result.pass).toBe(true);
 						var moreResult = matcher.compare(element, ".test");
 						expect(moreResult.pass).toBe(true);
+
+						var node = document.getElementById("generic");
+						var nodeResult = matcher.compare(node, "div.test");
+						expect(nodeResult.pass).toBe(true);
 					});
 
 				});
@@ -180,7 +196,7 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toBeSelected();
 			});
 
-			describe("Given a jQuery object", function(){
+			describe("Given a jQuery object or an HTMLElement", function(){
 
 				describe("Matches if:", function(){
 
@@ -188,6 +204,10 @@ describe("jasmineMatchers", function(){
 						var element = jQuery("#selected");
 						var result = matcher.compare(element);
 						expect(result.pass).toBe(true);
+
+						var node = document.getElementById("selected");
+						var nodeResult = matcher.compare(node);
+						expect(nodeResult.pass).toBe(true);
 					});
 
 				});
@@ -214,7 +234,7 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toBeVisible();
 			});
 
-			describe("Given a jQuery object", function(){
+			describe("Given a jQuery object or an HTMLElement", function(){
 
 				describe("Matches if:", function(){
 
@@ -225,6 +245,10 @@ describe("jasmineMatchers", function(){
 						expect(blockResult.pass).toBe(true);
 						var visibilityResult = matcher.compare(jQuery("#visibleVisibility"));
 						expect(visibilityResult.pass).toBe(true);
+
+						var node = document.getElementById("generic");
+						var nodeResult = matcher.compare(node);
+						expect(nodeResult.pass).toBe(true);
 					});
 
 					it("The jQuery object CSS has both height and width set to zero", function(){
@@ -278,14 +302,18 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toHaveAttr();
 			});
 
-			describe("Given a jQuery object, the name of an attribute and an optional value", function(){
+			describe("Given a jQuery object or an HTMLElement, the name of an attribute and an optional value", function(){
 
 				describe("Matches if:", function(){
 
 					it("The attribute is found", function(){
-						var element = jQuery("<div class='test'></div>");
+						var element = jQuery("#generic");
 						var result = matcher.compare(element, "class");
 						expect(result.pass).toBe(true);
+
+						var node = document.getElementById("generic");
+						var nodeResult = matcher.compare(node, "class", "test");
+						expect(nodeResult.pass).toBe(true);
 					});
 
 					it("The attribute is found and its value matches", function(){
@@ -331,14 +359,18 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toHaveClass();
 			});
 
-			describe("Given a jQuery object and the name of a CSS class", function(){
+			describe("Given a jQuery object or an HTMLElement and the name of a CSS class", function(){
 
 				describe("Matches if:", function(){
 
 					it("The class is found", function(){
-						var element = jQuery("<div class='test'></div>");
+						var element = jQuery("#generic");
 						var result = matcher.compare(element, "test");
 						expect(result.pass).toBe(true);
+
+						var node = document.getElementById("generic");
+						var nodeResult = matcher.compare(node, "test");
+						expect(nodeResult.pass).toBe(true);
 					});
 
 					it("The jQuery object also contains multiple classes other then the given one", function(){
@@ -378,7 +410,7 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toHaveCss();
 			});
 
-			describe("Given a jQuery object, the name of a CSS property and an optional value. Check the computed style property", function(){
+			describe("Given a jQuery object or an HTMLElement, the name of a CSS property and an optional value. Check the computed style property", function(){
 
 				describe("Matches if:", function(){
 
@@ -386,6 +418,10 @@ describe("jasmineMatchers", function(){
 						var element = jQuery("#blockDisplay");
 						var result = matcher.compare(element, "display");
 						expect(result.pass).toBe(true);
+
+						var node = document.getElementById("blockDisplay");
+						var nodeResult = matcher.compare(node, "display");
+						expect(nodeResult.pass).toBe(true);
 					});
 
 					it("The CSS property is found inside an embedded style", function(){
@@ -444,7 +480,7 @@ describe("jasmineMatchers", function(){
 				matcher = jasmineMatchers.toHaveProp();
 			});
 
-			describe("Given a jQuery object, the name of a property and an optional value", function(){
+			describe("Given a jQuery object or an HTMLElement, the name of a property and an optional value", function(){
 
 				describe("Matches if:", function(){
 
@@ -452,6 +488,10 @@ describe("jasmineMatchers", function(){
 						var element = jQuery("#radioChecked");
 						var result = matcher.compare(element, "checked");
 						expect(result.pass).toBe(true);
+
+						var node = document.getElementById("radioChecked");
+						var nodeResult = matcher.compare(node, "checked");
+						expect(nodeResult.pass).toBe(true);
 					});
 
 					it("The property is found and its value matches", function(){
