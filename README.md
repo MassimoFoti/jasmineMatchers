@@ -87,11 +87,15 @@ Either:
 
 ## jQuery-based matchers
 
+All the matchers below accept both a jQuery object or an HTMLElement
+
 - `toBeChecked()`
   - `expect($('<input type="checkbox" checked="checked">')).toBeChecked()`
+  - `expect(document.getElementById("checked")).toBeChecked()`
 
 - `toBeDisabled()`
   - `expect('<input type="text" disabled="disabled">').toBeDisabled()`
+  - `expect(document.getElementById("disable")).toBeChecked()`
 
 - `toBeEmpty()`
   - Pass if there is no child DOM element/s or text
