@@ -1,6 +1,6 @@
 /*! 
-jasmineMatchers 0.3 2017-12-26T08:43:34.374Z
-Copyright 2017 Massimo Foti (massimo@massimocorner.com)
+jasmineMatchers 0.4 2018-03-10T16:01:23.685Z
+Copyright 2018 Massimo Foti (massimo@massimocorner.com)
 Licensed under the Apache License, Version 2.0 | http://www.apache.org/licenses/LICENSE-2.0
  */
 /* istanbul ignore if */
@@ -23,9 +23,184 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 (function(){
 	"use strict";
 
-	jasmineMatchers.version = "0.3";
+	jasmineMatchers.version = "0.4";
 
 	/* Generic matchers */
+
+	var isPrimitive = function(actual){
+		// Boolean
+		if(actual === false || actual === true){
+			return true;
+		}
+		// Nill
+		if(actual === null || actual === undefined){
+			return true;
+		}
+		// Number
+		if(typeof actual === "number"){
+			return true;
+		}
+		// String
+		if(typeof actual === "string"){
+			return true;
+		}
+		return false;
+	};
+
+	jasmineMatchers.toBeExtensible = function(){
+		return {
+			/**
+			 * @param {Object} actual
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual){
+				var result = {
+					pass: false
+				};
+				// Primitive values are not frozen in older browser (IE11 and before)
+				if(isPrimitive(actual) === true){
+					result.pass = false;
+					result.message = "Expected: " + actual + " to be extensible";
+					return result;
+				}
+				if(Object.isExtensible(actual) === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Expected: " + actual + " to be extensible";
+					return result;
+				}
+			}
+		};
+	};
+
+	jasmineMatchers.toBeFalse = function(){
+		return {
+			/**
+			 * @param {Object} actual
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual){
+				var result = {
+					pass: false
+				};
+				if(actual === false){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Expected: " + actual + " to equal: false";
+					return result;
+				}
+			}
+		};
+	};
+
+	jasmineMatchers.toBeFrozen = function(){
+		return {
+			/**
+			 * @param {Object} actual
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual){
+				var result = {
+					pass: false
+				};
+				// Primitive values are not frozen in older browser (IE11 and before)
+				if(isPrimitive(actual) === true){
+					result.pass = false;
+					result.message = "Expected: " + actual + " to be frozen";
+					return result;
+				}
+				if(Object.isFrozen(actual) === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Expected: " + actual + " to be frozen";
+					return result;
+				}
+			}
+		};
+	};
+
+	jasmineMatchers.toBeInstanceOf = function(){
+		return {
+			/**
+			 * @param {Object} actual
+			 * @param {Object} type
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual, type){
+				var result = {
+					pass: false
+				};
+				if(type === undefined){
+					result.message = "Please specify the object to test against";
+					return result;
+				}
+				if(actual instanceof type === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Expected: " + actual + " to be instanceof of: " + type;
+					return result;
+				}
+			}
+		};
+	};
+
+	jasmineMatchers.toBeSealed = function(){
+		return {
+			/**
+			 * @param {Object} actual
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual){
+				var result = {
+					pass: false
+				};
+				// Primitive values are not sealed in older browser (IE11 and before)
+				if(isPrimitive(actual) === true){
+					result.pass = false;
+					result.message = "Expected: " + actual + " to be sealed";
+					return result;
+				}
+				if(Object.isSealed(actual) === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Expected: " + actual + " to be sealed";
+					return result;
+				}
+			}
+		};
+	};
+
+	jasmineMatchers.toBeTrue = function(){
+		return {
+			/**
+			 * @param {Object} actual
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual){
+				var result = {
+					pass: false
+				};
+				if(actual === true){
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Expected: " + actual + " to equal: true";
+					return result;
+				}
+			}
+		};
+	};
 
 	jasmineMatchers.toHaveProperty = function(){
 		return {
@@ -55,6 +230,36 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Expected: " + propertyName + " to equal: " + expectedValue + " but current value is: " + actual[propertyName];
 					return result;
 				}
+			}
+		};
+	};
+
+	jasmineMatchers.toHaveReadonlyProperty = function(){
+		return {
+			/**
+			 * @param {Object} actual
+			 * @param {String} property
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual, property){
+				var result = {
+					pass: false
+				};
+				if(jQuery.type(property) !== "string"){
+					result.message = "Please specify the name of the property as string";
+					return result;
+				}
+				var desc = Object.getOwnPropertyDescriptor(actual, property);
+				if(desc === undefined){
+					result.message = "Unable to find property: " + property;
+					return result;
+				}
+				if(desc.writable === false){
+					result.pass = true;
+					return result;
+				}
+				result.message = "Property: " + property + " is not readonly";
+				return result;
 			}
 		};
 	};
@@ -108,36 +313,6 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		};
 	};
 
-	jasmineMatchers.toHaveReadonly = function(){
-		return {
-			/**
-			 * @param {Object} parentObject
-			 * @param {String} property
-			 * @return {jasmineMatchers.result}
-			 */
-			compare: function(parentObject, property){
-				var result = {
-					pass: false
-				};
-				if(jQuery.type(property) !== "string"){
-					result.message = "Please specify the name of the property as string";
-					return result;
-				}
-				var desc = Object.getOwnPropertyDescriptor(parentObject, property);
-				if(desc === undefined){
-					result.message = "Unable to find property: " + property;
-					return result;
-				}
-				if(desc.writable === false){
-					result.pass = true;
-					return result;
-				}
-				result.message = "Property: " + property + " is not readonly";
-				return result;
-			}
-		};
-	};
-
 	/* jQuery-based matchers */
 
 	var hasProperty = function(actualValue, expectedValue){
@@ -150,14 +325,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeChecked = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element){
+			compare: function(actual){
 				var result = {
 					pass: false
 				};
-				if(jQuery(element).is(":checked") === true){
+				if(jQuery(actual).is(":checked") === true){
 					result.pass = true;
 					return result;
 				}
@@ -172,14 +347,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeDisabled = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element){
+			compare: function(actual){
 				var result = {
 					pass: false
 				};
-				if(jQuery(element).is(":disabled") === true){
+				if(jQuery(actual).is(":disabled") === true){
 					result.pass = true;
 					return result;
 				}
@@ -194,14 +369,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeEmpty = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element){
+			compare: function(actual){
 				var result = {
 					pass: false
 				};
-				if(jQuery(element).is(":empty") === true){
+				if(jQuery(actual).is(":empty") === true){
 					result.pass = true;
 					return result;
 				}
@@ -216,11 +391,11 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeMatchedBy = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @param {String} selector
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element, selector){
+			compare: function(actual, selector){
 				var result = {
 					pass: false
 				};
@@ -228,7 +403,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify the selector as string";
 					return result;
 				}
-				if(jQuery(element).filter(selector).length > 0){
+				if(jQuery(actual).filter(selector).length > 0){
 					result.pass = true;
 					return result;
 				}
@@ -243,14 +418,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeSelected = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element){
+			compare: function(actual){
 				var result = {
 					pass: false
 				};
-				if(jQuery(element).is(":selected") === true){
+				if(jQuery(actual).is(":selected") === true){
 					result.pass = true;
 					return result;
 				}
@@ -265,14 +440,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeVisible = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element){
+			compare: function(actual){
 				var result = {
 					pass: false
 				};
-				if(jQuery(element).is(":visible") === true){
+				if(jQuery(actual).is(":visible") === true){
 					result.pass = true;
 					return result;
 				}
@@ -287,12 +462,12 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveAttr = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @param {String} attributeName
 			 * @param {String} expectedValue
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element, attributeName, expectedValue){
+			compare: function(actual, attributeName, expectedValue){
 				var result = {
 					pass: false
 				};
@@ -300,7 +475,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify the attribute as string";
 					return result;
 				}
-				if(hasProperty(jQuery(element).attr(attributeName), expectedValue) === true){
+				if(hasProperty(jQuery(actual).attr(attributeName), expectedValue) === true){
 					result.pass = true;
 					return result;
 				}
@@ -315,11 +490,11 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveClass = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @param {String} className
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element, className){
+			compare: function(actual, className){
 				var result = {
 					pass: false
 				};
@@ -327,7 +502,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify the name of the CSS class as string";
 					return result;
 				}
-				if(jQuery(element).hasClass(className) === true){
+				if(jQuery(actual).hasClass(className) === true){
 					result.pass = true;
 					return result;
 				}
@@ -342,12 +517,12 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveCss = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @param {String} propertyName
 			 * @param {String} expectedValue
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element, propertyName, expectedValue){
+			compare: function(actual, propertyName, expectedValue){
 				var result = {
 					pass: false
 				};
@@ -356,11 +531,11 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					return result;
 				}
 				// Second case is Chrome only
-				if(jQuery(element).css(propertyName) === "" || jQuery(element).css(propertyName) === "0px"){
+				if(jQuery(actual).css(propertyName) === "" || jQuery(actual).css(propertyName) === "0px"){
 					result.message = "CSS property: " + propertyName + " not found";
 					return result;
 				}
-				if(hasProperty(jQuery(element).css(propertyName), expectedValue) === true){
+				if(hasProperty(jQuery(actual).css(propertyName), expectedValue) === true){
 					result.pass = true;
 					return result;
 				}
@@ -375,12 +550,12 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveProp = function(){
 		return {
 			/**
-			 * @param {jQuery} element
+			 * @param {jQuery} actual
 			 * @param {String} propertyName
 			 * @param {String} expectedValue
 			 * @return {jasmineMatchers.result}
 			 */
-			compare: function(element, propertyName, expectedValue){
+			compare: function(actual, propertyName, expectedValue){
 				var result = {
 					pass: false
 				};
@@ -388,7 +563,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify the property as string";
 					return result;
 				}
-				if(hasProperty(jQuery(element).prop(propertyName), expectedValue) === true){
+				if(hasProperty(jQuery(actual).prop(propertyName), expectedValue) === true){
 					result.pass = true;
 					return result;
 				}
