@@ -98,10 +98,10 @@ All the matchers below accept both a jQuery object or an HTMLElement
   - `expect(document.getElementById("disable")).toBeChecked()`
 
 - `toBeEmpty()`
-  - Pass if there is no child DOM element/s or text
+  - Pass if the tested object contains no child DOM element/s or text
 
 - `toBeMatchedBy(jQuerySelector)`
-  - Check to see if the set of matched elements matches the given selector
+  - Check to see if the tested object matches the given selector
   - `expect($('<div class='test'></div>')).toBeMatchedBy('.test')`
 
 - `toBeSelected()`
@@ -109,7 +109,7 @@ All the matchers below accept both a jQuery object or an HTMLElement
 
 - `toBeVisible()`
   - Elements are considered visible if they consume space in the document. Even if they have both width and height set to zero
-  - In order for this matcher to work, the jQuery object must be part of the current document DOM
+  - In order for this matcher to work, the tested object must be part of the current document DOM
 
 - `toHaveAttr(attributeName, [expectedValue])`
   - expectedValue is optional, if omitted it will check only if attribute exists
