@@ -117,7 +117,7 @@ All the matchers below accept both a jQuery object or an HTMLElement
 - `toHaveClass(className)`
   - `expect($('<div class="test"></div>')).toHaveClass("test")`
   
-  **Important**: unlike the matcher introduced in Jasmine 3.x, this works both a jQuery object or an HTMLElement 
+  **Important**: unlike the matcher introduced in Jasmine 3.x, this works both on a jQuery object or an HTMLElement 
   
 - `toHaveCss(propertyName, [expectedValue])`
   - expectedValue is optional, if omitted it will check only if the computed style property exists
