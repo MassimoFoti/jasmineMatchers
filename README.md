@@ -100,7 +100,7 @@ All the matchers below accept both a jQuery object or an HTMLElement
 - `toBeEmpty()`
   - Pass if the tested object contains no child DOM element/s or text
 
-- `toBeMatchedBy(jQuerySelector)`
+- `toBeMatchedBy(selector)`
   - Check to see if the tested object matches the given selector
   - `expect($('<div class='test'></div>')).toBeMatchedBy('.test')`
 
