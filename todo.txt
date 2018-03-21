@@ -1,3 +1,5 @@
+- Add .toContainElement()
+
 VERSION 2.0
 
 - Drop support for IE 9/10
