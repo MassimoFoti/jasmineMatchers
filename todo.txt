@@ -1,5 +1,7 @@
 - Add .toContainElement()
 
+- Validate input and actual to be instanceof jQuery/Element?
+
 VERSION 2.0
 
 - Drop support for IE 9/10
