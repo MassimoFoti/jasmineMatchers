@@ -85,9 +85,9 @@ Either:
   - `expect({name: "Ciccio"}).not.toMatchDuckType({name: []})`
   - `expect({name: "Ciccio"}).toMatchDuckType({name: []}, false)`
 
-## jQuery-based matchers
+## DOM-related matchers
 
-All the matchers below accept both a jQuery object or an HTMLElement
+All the matchers below accept either a jQuery object or an HTMLElement
 
 - `toBeChecked()`
   - `expect($('<input type="checkbox" checked="checked">')).toBeChecked()`
