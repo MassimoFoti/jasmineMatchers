@@ -3,6 +3,7 @@
 - Add .toContainElementsMatching()
 - Add check on "actual" element using new utility "isValidElement"
 - Fix JSDoc to accept both jQuery and HTMLElement
+- Rename jQueryMatchers.Spec.js to not refer to jQuery but to generic DOM matchers.
 
 - Validate input and actual to be instanceof jQuery/Element?
 
