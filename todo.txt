@@ -1,6 +1,8 @@
 - Add link to Github to the header
 
-- Add .toContainElement()
+- Add .toContainElementsMatching()
+- Add check on "actual" element using new utility "isValidElement"
+- Fix JSDoc to accept both jQuery and HTMLElement
 
 - Validate input and actual to be instanceof jQuery/Element?
 
