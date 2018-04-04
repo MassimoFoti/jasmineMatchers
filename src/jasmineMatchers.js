@@ -393,6 +393,37 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		};
 	};
 
+	jasmineMatchers.toContainElement = function(){
+		return {
+			/**
+			 * @param {jQuery|HTMLElement} actual
+			 * @param {jQuery|HTMLElement} element
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual, element){
+				var result = {
+					pass: false
+				};
+				if(isValidElement(actual) === false){
+					result.message = "Please specify an Element as parent";
+					return result;
+				}
+				if(isValidElement(element) === false){
+					result.message = "Please specify an Element as child";
+					return result;
+				}
+				if(jQuery(actual).find(element).length > 0) {
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Element " + element + " is not contained in " + actual;
+					return result;
+				}
+			}
+		};
+	};
+
 	jasmineMatchers.toBeMatchedBy = function(){
 		return {
 			/**
