@@ -142,6 +142,206 @@ describe("jasmineMatchers", function(){
 
 		});
 
+		describe(".toContainElement()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toContainElement();
+			});
+
+			describe("Given a jQuery object or HTMLElement (from now on Element1) and another jQuery object or HTMLElement (from now on Element2)", function(){
+
+				describe("Matches if:", function(){
+
+					it("Element2 is a child of Element1", function(){
+						var element = jQuery("#container");
+						var childElement = jQuery("#containedLevel1");
+						var result = matcher.compare(element, childElement);
+						expect(result.pass).toBe(true);
+
+						var node = document.getElementById("container");
+						var childNode = document.getElementById("containedLevel1");
+						var nodeResult = matcher.compare(node, childNode);
+						expect(nodeResult.pass).toBe(true);
+					});
+
+					it("Element2 is a child, with any nesting level, of Element1", function(){
+						var element = jQuery("#container");
+						var childElement = jQuery("#containedLevel2");
+						var result = matcher.compare(element, childElement);
+						expect(result.pass).toBe(true);
+
+						var node = document.getElementById("container");
+						var childNode = document.getElementById("containedLevel2");
+						var nodeResult = matcher.compare(node, childNode);
+						expect(nodeResult.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("Element2 is not a child of the Element1", function(){
+						var element = jQuery("#container");
+						var notChildElement = jQuery("#notContained");
+						var result = matcher.compare(element, notChildElement);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Element " + notChildElement + " is not contained in " + element);
+					});
+
+					it("Only one argument is provided", function(){
+						var element = jQuery("#container");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify an Element as child");
+					});
+
+					it("Element1 is neither a jQuery object nor a HTMLElement", function(){
+						var notValidElement = "text";
+						var result = matcher.compare(notValidElement);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify an Element as parent");
+					});
+
+					it("Element2 is neither a jQuery object nor a HTMLElement", function(){
+						var element = jQuery("#container");
+						var notValidChildElement = "text";
+						var result = matcher.compare(element, notValidChildElement);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify an Element as child");
+					});
+
+				});
+
+			});
+
+		});
+
+		describe(".toContainElementsMatching()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toContainElementsMatching();
+			});
+
+			describe("Given a jQuery object or HTMLElement (from now on Container), a selector and optionally a cardinality", function(){
+
+				describe("Matches if:", function(){
+
+					it("The cardinality is undefined and the Container contains at least one element matching the selector", function(){
+						var element = jQuery("#container");
+						var node = document.getElementById("container");
+
+						// One child
+						var selectorById = "#containedLevel1";
+						var resultById = matcher.compare(element, selectorById);
+						expect(resultById.pass).toBe(true);
+
+						var nodeResultById = matcher.compare(node, selectorById);
+						expect(nodeResultById.pass).toBe(true);
+
+						// More than one child, at any nesting level
+						var selectorByClass = ".groupA";
+						var resultByClass = matcher.compare(element, selectorByClass);
+						expect(resultByClass.pass).toBe(true);
+
+						var nodeResultByClass = matcher.compare(node, selectorByClass);
+						expect(nodeResultByClass.pass).toBe(true);
+					});
+
+					it("The Container contains n elements matching the selector, where n is equal to the provided cardinality", function(){
+						var element = jQuery("#container");
+						var node = document.getElementById("container");
+
+						// One child
+						var selectorById = "#containedLevel1";
+						var cardinalityById = 1;
+						var resultById = matcher.compare(element, selectorById, cardinalityById);
+						expect(resultById.pass).toBe(true);
+
+						var nodeResultById = matcher.compare(node, selectorById, cardinalityById);
+						expect(nodeResultById.pass).toBe(true);
+
+						// More than one child, at any nesting level
+						var selectorByClass = ".groupA";
+						var cardinalityByClass = 2;
+						var resultByClass = matcher.compare(element, selectorByClass, cardinalityByClass);
+						expect(resultByClass.pass).toBe(true);
+
+						var nodeResultByClass = matcher.compare(node, selectorByClass, cardinalityByClass);
+						expect(nodeResultByClass.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("The cardinality is undefined, and there aren't elements in Container matching the selector", function(){
+						var element = jQuery("#container");
+						var selector = ".notExistingElement";
+
+						var result = matcher.compare(element, selector);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Element " + element + " does not contain any element matched by: " + selector);
+					});
+
+					it("There are more elements in Container matching the selector than what specified by the cardinality", function(){
+						var element = jQuery("#container");
+						var selector = ".groupA";
+						var wrongCardinality = 1;
+
+						var result = matcher.compare(element, selector, wrongCardinality);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Element " + element + " contains 2 elements matched by: " + selector + " and not " + wrongCardinality);
+					});
+
+					it("There are less elements in Container matching the selector than what specified by the cardinality", function(){
+						var element = jQuery("#container");
+						var selector = ".groupA";
+						var wrongCardinality = 3;
+
+						var result = matcher.compare(element, selector, wrongCardinality);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Element " + element + " contains 2 elements matched by: " + selector + " and not " + wrongCardinality);
+					});
+
+					it("Only one argument is provided", function(){
+						var element = jQuery("#container");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify the selector as string");
+					});
+
+					it("Container is neither a jQuery object nor a HTMLElement", function(){
+						var notValidElement = "text";
+						var result = matcher.compare(notValidElement);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify an Element as container");
+					});
+
+					it("The selector provided is not a string", function(){
+						var element = jQuery("#container");
+						var notValidSelector = 1;
+						var result = matcher.compare(element, notValidSelector);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify the selector as string");
+					});
+
+					it("The cardinality provided is not a number", function(){
+						var element = jQuery("#container");
+						var selector = ".groupA";
+						var notValidCardinality = "mockCardinality";
+						var result = matcher.compare(element, selector, notValidCardinality);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify the cardinality as number");
+					});
+
+				});
+
+			});
+
+		});
+
 		describe(".toBeMatchedBy()", function(){
 
 			var matcher;

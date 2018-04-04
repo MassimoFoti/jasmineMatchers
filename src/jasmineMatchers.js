@@ -20,7 +20,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 
 	jasmineMatchers.version = "0.4";
 
-	/* Generic matchers */
+	/* Utils */
 
 	var isPrimitive = function(actual){
 		// Boolean
@@ -41,6 +41,16 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		}
 		return false;
 	};
+
+	/**
+	 * @param {Object} element
+	 * @returns {boolean} True if the element is a HTMLElement or a jQuery object.
+	 */
+	var isValidElement = function(element) {
+		return element instanceof HTMLElement || element instanceof jQuery;
+	};
+
+	/* Generic matchers */
 
 	jasmineMatchers.toBeExtensible = function(){
 		return {
@@ -379,6 +389,89 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Element is not empty";
 					return result;
 				}
+			}
+		};
+	};
+
+	jasmineMatchers.toContainElement = function(){
+		return {
+			/**
+			 * @param {jQuery|HTMLElement} actual
+			 * @param {jQuery|HTMLElement} element
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual, element){
+				var result = {
+					pass: false
+				};
+				if(isValidElement(actual) === false){
+					result.message = "Please specify an Element as parent";
+					return result;
+				}
+				if(isValidElement(element) === false){
+					result.message = "Please specify an Element as child";
+					return result;
+				}
+				if(jQuery(actual).find(element).length > 0) {
+					result.pass = true;
+					return result;
+				}
+				else{
+					result.message = "Element " + element + " is not contained in " + actual;
+					return result;
+				}
+			}
+		};
+	};
+
+	jasmineMatchers.toContainElementsMatching = function(){
+		return {
+			/**
+			 * @param {jQuery|HTMLElement} actual
+			 * @param {string} selector
+			 * @param {number|undefined} cardinality
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual, selector, cardinality){
+				var result = {
+					pass: false
+				};
+
+				// Validate arguments
+				if(isValidElement(actual) === false){
+					result.message = "Please specify an Element as container";
+					return result;
+				}
+				if(jQuery.type(selector) !== "string"){
+					result.message = "Please specify the selector as string";
+					return result;
+				}
+				if(jQuery.type(cardinality) !== "undefined" && jQuery.type(cardinality) !== "number"){
+					result.message = "Please specify the cardinality as number";
+					return result;
+				}
+
+				var matchesCount = jQuery(actual).find(selector).length;
+
+				// If the cardinality is not specified,
+				// the test passes if there is at least one child element matching the selector.
+				if(cardinality === undefined){
+					if(matchesCount > 0){
+						result.pass = true;
+					}
+					else {
+						result.message = "Element " + actual + " does not contain any element matched by: " + selector;
+					}
+				}
+				else {
+					if(matchesCount === cardinality) {
+						result.pass = true;
+					}
+					else {
+						result.message = "Element " + actual + " contains " + matchesCount + " elements matched by: " + selector + " and not " + cardinality;
+					}
+				}
+				return result;
 			}
 		};
 	};
