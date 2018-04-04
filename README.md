@@ -100,10 +100,10 @@ All the matchers below accept either a jQuery object or an HTMLElement
 - `toBeEmpty()`
   - Pass if the tested object contains no child DOM element/s or text
   
-- `toContainElement()`
+- `toContainElement(element)`
   - Pass if the tested object contains the DOM element provided
   
-- `toContainElementsMatching()`
+- `toContainElementsMatching(selector, [cardinality])`
   - Pass if the tested object contains n elements matching the given selector, where n is exactly the provided cardinality.
   - If the cardinality is not defined, pass if the tested object contains at least one element matching the given selector.
 
