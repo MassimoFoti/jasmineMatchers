@@ -142,6 +142,81 @@ describe("jasmineMatchers", function(){
 
 		});
 
+		describe(".toContainElement()", function(){
+
+			var matcher;
+			beforeEach(function(){
+				matcher = jasmineMatchers.toContainElement();
+			});
+
+			describe("Given a jQuery object or HTMLElement (from now on Element1) and another jQuery object or HTMLElement (from now on Element2)", function(){
+
+				describe("Matches if:", function(){
+
+					it("Element2 is a child of Element1", function(){
+						var element = jQuery("#container");
+						var childElement = jQuery("#containedLevel1");
+						var result = matcher.compare(element, childElement);
+						expect(result.pass).toBe(true);
+
+						var node = document.getElementById("container");
+						var childNode = document.getElementById("containedLevel1");
+						var nodeResult = matcher.compare(node, childNode);
+						expect(nodeResult.pass).toBe(true);
+					});
+
+					it("Element2 is a child, with any nesting level, of Element1", function(){
+						var element = jQuery("#container");
+						var childElement = jQuery("#containedLevel2");
+						var result = matcher.compare(element, childElement);
+						expect(result.pass).toBe(true);
+
+						var node = document.getElementById("container");
+						var childNode = document.getElementById("containedLevel2");
+						var nodeResult = matcher.compare(node, childNode);
+						expect(nodeResult.pass).toBe(true);
+					});
+
+				});
+
+				describe("Fails if:", function(){
+
+					it("Element2 is not a child of the Element1", function(){
+						var element = jQuery("#container");
+						var notChildElement = jQuery("#notContained");
+						var result = matcher.compare(element, notChildElement);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Element " + notChildElement + " is not contained in " + element);
+					});
+
+					it("Only one argument is provided", function(){
+						var element = jQuery("#container");
+						var result = matcher.compare(element);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify an Element as child");
+					});
+
+					it("Element1 is neither a jQuery object nor a HTMLElement", function(){
+						var notValidElement = "text";
+						var result = matcher.compare(notValidElement);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify an Element as parent");
+					});
+
+					it("Element2 is neither a jQuery object nor a HTMLElement", function(){
+						var element = jQuery("#container");
+						var notValidChildElement = "text";
+						var result = matcher.compare(element, notValidChildElement);
+						expect(result.pass).toBe(false);
+						expect(result.message).toBe("Please specify an Element as child");
+					});
+
+				});
+
+			});
+
+		});
+
 		describe(".toBeMatchedBy()", function(){
 
 			var matcher;
