@@ -20,7 +20,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 
 	jasmineMatchers.version = "0.4";
 
-	/* Generic matchers */
+	/* Utils */
 
 	var isPrimitive = function(actual){
 		// Boolean
@@ -41,6 +41,16 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		}
 		return false;
 	};
+
+	/**
+	 * @param {Object} element
+	 * @returns {boolean} True if the element is a HTMLElement or a jQuery object.
+	 */
+	var isValidElement = function(element) {
+		return element instanceof HTMLElement || element instanceof jQuery;
+	};
+
+	/* Generic matchers */
 
 	jasmineMatchers.toBeExtensible = function(){
 		return {
