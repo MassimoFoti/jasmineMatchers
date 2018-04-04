@@ -424,6 +424,58 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		};
 	};
 
+	jasmineMatchers.toContainElementsMatching = function(){
+		return {
+			/**
+			 * @param {jQuery|HTMLElement} actual
+			 * @param {string} selector
+			 * @param {number|undefined} cardinality
+			 * @return {jasmineMatchers.result}
+			 */
+			compare: function(actual, selector, cardinality){
+				var result = {
+					pass: false
+				};
+
+				// Validate arguments
+				if(isValidElement(actual) === false){
+					result.message = "Please specify an Element as container";
+					return result;
+				}
+				if(jQuery.type(selector) !== "string"){
+					result.message = "Please specify the selector as string";
+					return result;
+				}
+				if(jQuery.type(cardinality) !== "undefined" && jQuery.type(cardinality) !== "number"){
+					result.message = "Please specify the cardinality as number";
+					return result;
+				}
+
+				var matchesCount = jQuery(actual).find(selector).length;
+
+				// If the cardinality is not specified,
+				// the test passes if there is at least one child element matching the selector.
+				if(cardinality === undefined){
+					if(matchesCount > 0){
+						result.pass = true;
+					}
+					else {
+						result.message = "Element " + actual + " does not contain any element matched by: " + selector;
+					}
+				}
+				else {
+					if(matchesCount === cardinality) {
+						result.pass = true;
+					}
+					else {
+						result.message = "Element " + actual + " contains " + matchesCount + " elements matched by: " + selector + " and not " + cardinality;
+					}
+				}
+				return result;
+			}
+		};
+	};
+
 	jasmineMatchers.toBeMatchedBy = function(){
 		return {
 			/**
