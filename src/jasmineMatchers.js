@@ -18,7 +18,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 (function(){
 	"use strict";
 
-	jasmineMatchers.version = "0.4";
+	jasmineMatchers.version = "0.5";
 
 	/* Utils */
 
