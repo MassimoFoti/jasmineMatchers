@@ -1,7 +1,6 @@
-- Add check on "actual" element using new utility "isValidElement"
 - Fix JSDoc to accept both jQuery and HTMLElement
 
-- Validate input and actual to be instanceof jQuery/Element?
+- Validate input and actual to be instanceof jQuery/Element using new utility "isValidElement"
 
 VERSION 2.0
 
