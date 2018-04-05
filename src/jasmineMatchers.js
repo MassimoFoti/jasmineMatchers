@@ -330,7 +330,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeChecked = function(){
 		return {
 			/**
-			 * @param {jQuery} actual
+			 * @param {jQuery|HTMLElement} actual
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
@@ -352,7 +352,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeDisabled = function(){
 		return {
 			/**
-			 * @param {jQuery} actual
+			 * @param {jQuery|HTMLElement} actual
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
@@ -374,7 +374,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeEmpty = function(){
 		return {
 			/**
-			 * @param {jQuery} actual
+			 * @param {jQuery|HTMLElement} actual
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
@@ -479,7 +479,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeMatchedBy = function(){
 		return {
 			/**
-			 * @param {jQuery} actual
+			 * @param {jQuery|HTMLElement} actual
 			 * @param {String} selector
 			 * @return {jasmineMatchers.result}
 			 */
@@ -506,7 +506,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeSelected = function(){
 		return {
 			/**
-			 * @param {jQuery} actual
+			 * @param {jQuery|HTMLElement} actual
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
@@ -528,7 +528,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeVisible = function(){
 		return {
 			/**
-			 * @param {jQuery} actual
+			 * @param {jQuery|HTMLElement} actual
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
@@ -550,7 +550,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveAttr = function(){
 		return {
 			/**
-			 * @param {jQuery} actual
+			 * @param {jQuery|HTMLElement} actual
 			 * @param {String} attributeName
 			 * @param {String} expectedValue
 			 * @return {jasmineMatchers.result}
@@ -578,7 +578,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveClass = function(){
 		return {
 			/**
-			 * @param {jQuery} actual
+			 * @param {jQuery|HTMLElement} actual
 			 * @param {String} className
 			 * @return {jasmineMatchers.result}
 			 */
@@ -605,7 +605,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveCss = function(){
 		return {
 			/**
-			 * @param {jQuery} actual
+			 * @param {jQuery|HTMLElement} actual
 			 * @param {String} propertyName
 			 * @param {String} expectedValue
 			 * @return {jasmineMatchers.result}
@@ -638,7 +638,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveProp = function(){
 		return {
 			/**
-			 * @param {jQuery} actual
+			 * @param {jQuery|HTMLElement} actual
 			 * @param {String} propertyName
 			 * @param {String} expectedValue
 			 * @return {jasmineMatchers.result}

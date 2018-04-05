@@ -1,5 +1,3 @@
-- Fix JSDoc to accept both jQuery and HTMLElement
-
 - Validate input and actual to be instanceof jQuery/Element using new utility "isValidElement"
 
 VERSION 2.0
