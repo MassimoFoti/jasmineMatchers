@@ -15,6 +15,7 @@ module.exports = {
 
 	// Globals
 	globals: {
+		jasmineMatchers: false
 	},
 
 	parserOptions: {
