@@ -34,7 +34,7 @@ function assembleBanner(version){
 		"/*! ",
 		pkg.name + " " + version + " " + now.toISOString(),
 		pkg.homepage,
-		"Copyright " + now.getFullYear() + " Massimo Foti (massimo@massimocorner.com)",
+		"Copyright 2017-" + now.getFullYear() + " Massimo Foti (massimo@massimocorner.com)",
 		"Licensed under the Apache License, Version 2.0 | http://www.apache.org/licenses/LICENSE-2.0",
 		" */",
 		""].join("\n");
