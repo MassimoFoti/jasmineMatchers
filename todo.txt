@@ -1,6 +1,5 @@
-- Validate input and actual to be instanceof jQuery/Element using new utility "isValidElement"
-
-VERSION 2.0
+VERSION 1.0
 
 - Drop support for IE 9/10
 - Use const/let
+- Remove jQuery
