@@ -11,8 +11,8 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 /**
  * @typedef {Object} jasmineMatchers.result
  *
- * @property {Boolean} pass
- * @property {String} [message]
+ * @property {boolean} pass
+ * @property {string} [message]
  */
 
 (function(){
@@ -23,19 +23,19 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	/* Utils */
 
 	var isPrimitive = function(actual){
-		// Boolean
+		// boolean
 		if(actual === false || actual === true){
 			return true;
 		}
-		// Nill
+		// null
 		if(actual === null || actual === undefined){
 			return true;
 		}
-		// Number
+		// number
 		if(typeof actual === "number"){
 			return true;
 		}
-		// String
+		// string
 		if(typeof actual === "string"){
 			return true;
 		}
@@ -44,7 +44,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 
 	/**
 	 * @param {Object} element
-	 * @returns {boolean} True if the element is a HTMLElement or a jQuery object.
+	 * @return {boolean} True if the element is a HTMLElement or a jQuery object.
 	 */
 	var isValidElement = function(element) {
 		return element instanceof HTMLElement || element instanceof jQuery;
@@ -211,8 +211,8 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		return {
 			/**
 			 * @param {Object} actual
-			 * @param {String} propertyName
-			 * @param {String} expectedValue
+			 * @param {string} propertyName
+			 * @param {string} expectedValue
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, propertyName, expectedValue){
@@ -243,7 +243,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		return {
 			/**
 			 * @param {Object} actual
-			 * @param {String} property
+			 * @param {string} property
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, property){
@@ -274,7 +274,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			/**
 			 * @param {Object} actual
 			 * @param {Object} duckType
-			 * @param {Boolean} [matchType] Define if we have to compare type of property. Default to true
+			 * @param {boolean} [matchType] Define if we have to compare type of property. Default to true
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, duckType, matchType){
@@ -493,7 +493,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		return {
 			/**
 			 * @param {jQuery|HTMLElement} actual
-			 * @param {String} selector
+			 * @param {string} selector
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, selector){
@@ -576,8 +576,8 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		return {
 			/**
 			 * @param {jQuery|HTMLElement} actual
-			 * @param {String} attributeName
-			 * @param {String} expectedValue
+			 * @param {string} attributeName
+			 * @param {string} expectedValue
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, attributeName, expectedValue){
@@ -608,7 +608,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		return {
 			/**
 			 * @param {jQuery|HTMLElement} actual
-			 * @param {String} className
+			 * @param {string} className
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, className){
@@ -639,8 +639,8 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		return {
 			/**
 			 * @param {jQuery|HTMLElement} actual
-			 * @param {String} propertyName
-			 * @param {String} expectedValue
+			 * @param {string} propertyName
+			 * @param {string} expectedValue
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, propertyName, expectedValue){
@@ -676,8 +676,8 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		return {
 			/**
 			 * @param {jQuery|HTMLElement} actual
-			 * @param {String} propertyName
-			 * @param {String} expectedValue
+			 * @param {string} propertyName
+			 * @param {string} expectedValue
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, propertyName, expectedValue){
