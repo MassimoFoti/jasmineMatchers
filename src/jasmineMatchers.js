@@ -44,10 +44,10 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 
 	/**
 	 * @param {Object} element
-	 * @return {boolean} True if the element is a HTMLElement or a jQuery object.
+	 * @return {boolean} True if the element is a HTMLElement
 	 */
 	const isValidElement = function(element) {
-		return element instanceof HTMLElement || element instanceof jQuery;
+		return element instanceof HTMLElement === true;
 	};
 
 	const class2type = {};
@@ -342,7 +342,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 		};
 	};
 
-	/* jQuery-based matchers */
+	/* DOM-related matchers */
 
 	const hasProperty = function(actualValue, expectedValue){
 		if(expectedValue === undefined){
@@ -354,7 +354,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeChecked = function(){
 		return {
 			/**
-			 * @param {jQuery|HTMLElement} actual
+			 * @param {HTMLElement} actual
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
@@ -366,7 +366,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify an Element";
 					return result;
 				}
-				if(jQuery(actual).is(":checked") === true){
+				if(actual.checked === true){
 					result.pass = true;
 					return result;
 				}
@@ -381,7 +381,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeDisabled = function(){
 		return {
 			/**
-			 * @param {jQuery|HTMLElement} actual
+			 * @param {HTMLElement} actual
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
@@ -392,7 +392,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify an Element";
 					return result;
 				}
-				if(jQuery(actual).is(":disabled") === true){
+				if(actual.disabled === true){
 					result.pass = true;
 					return result;
 				}
@@ -407,7 +407,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeEmpty = function(){
 		return {
 			/**
-			 * @param {jQuery|HTMLElement} actual
+			 * @param {HTMLElement} actual
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
@@ -433,8 +433,8 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toContainElement = function(){
 		return {
 			/**
-			 * @param {jQuery|HTMLElement} actual
-			 * @param {jQuery|HTMLElement} element
+			 * @param {HTMLElement} actual
+			 * @param {HTMLElement} element
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, element){
@@ -464,7 +464,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toContainElementsMatching = function(){
 		return {
 			/**
-			 * @param {jQuery|HTMLElement} actual
+			 * @param {HTMLElement} actual
 			 * @param {string} selector
 			 * @param {number|undefined} cardinality
 			 * @return {jasmineMatchers.result}
@@ -516,7 +516,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeMatchedBy = function(){
 		return {
 			/**
-			 * @param {jQuery|HTMLElement} actual
+			 * @param {HTMLElement} actual
 			 * @param {string} selector
 			 * @return {jasmineMatchers.result}
 			 */
@@ -547,7 +547,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeSelected = function(){
 		return {
 			/**
-			 * @param {jQuery|HTMLElement} actual
+			 * @param {HTMLElement} actual
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
@@ -558,7 +558,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify an Element";
 					return result;
 				}
-				if(jQuery(actual).is(":selected") === true){
+				if(actual.selected === true){
 					result.pass = true;
 					return result;
 				}
@@ -573,7 +573,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toBeVisible = function(){
 		return {
 			/**
-			 * @param {jQuery|HTMLElement} actual
+			 * @param {HTMLElement} actual
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
@@ -599,7 +599,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveAttr = function(){
 		return {
 			/**
-			 * @param {jQuery|HTMLElement} actual
+			 * @param {HTMLElement} actual
 			 * @param {string} attributeName
 			 * @param {string} expectedValue
 			 * @return {jasmineMatchers.result}
@@ -631,7 +631,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveClass = function(){
 		return {
 			/**
-			 * @param {jQuery|HTMLElement} actual
+			 * @param {HTMLElement} actual
 			 * @param {string} className
 			 * @return {jasmineMatchers.result}
 			 */
@@ -647,7 +647,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify the name of the CSS class as string";
 					return result;
 				}
-				if(jQuery(actual).hasClass(className) === true){
+				if(actual.classList.contains(className) === true){
 					result.pass = true;
 					return result;
 				}
@@ -662,7 +662,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveCss = function(){
 		return {
 			/**
-			 * @param {jQuery|HTMLElement} actual
+			 * @param {HTMLElement} actual
 			 * @param {string} propertyName
 			 * @param {string} expectedValue
 			 * @return {jasmineMatchers.result}
@@ -699,7 +699,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	jasmineMatchers.toHaveProp = function(){
 		return {
 			/**
-			 * @param {jQuery|HTMLElement} actual
+			 * @param {HTMLElement} actual
 			 * @param {string} propertyName
 			 * @param {string} expectedValue
 			 * @return {jasmineMatchers.result}
@@ -716,7 +716,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify the property as string";
 					return result;
 				}
-				if(hasProperty(jQuery(actual).prop(propertyName), expectedValue) === true){
+				if(hasProperty(actual[propertyName], expectedValue) === true){
 					result.pass = true;
 					return result;
 				}
