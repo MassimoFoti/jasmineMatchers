@@ -12,7 +12,6 @@
 		"url": "https://github.com/MassimoFoti/jasmineMatchers"
 	},
 	"devDependencies": {
-		"eslint-plugin-ie11": "^1.0.0",
 		"gulp": "~3.9.1",
 		"gulp-changed": "~3.2.0",
 		"gulp-header": "~2.0.5",
