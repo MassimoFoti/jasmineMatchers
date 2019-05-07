@@ -1,5 +1,3 @@
 VERSION 1.0
 
-- Drop support for IE
-- Use const/let
 - Remove jQuery 

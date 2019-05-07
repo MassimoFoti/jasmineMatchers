@@ -22,7 +22,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 
 	/* Utils */
 
-	var isPrimitive = function(actual){
+	const isPrimitive = function(actual){
 		// boolean
 		if(actual === false || actual === true){
 			return true;
@@ -46,8 +46,32 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 	 * @param {Object} element
 	 * @return {boolean} True if the element is a HTMLElement or a jQuery object.
 	 */
-	var isValidElement = function(element) {
+	const isValidElement = function(element) {
 		return element instanceof HTMLElement || element instanceof jQuery;
+	};
+
+	const class2type = {};
+	["Array", "Boolean", "Date", "Error", "Function", "Number", "Object", "RegExp", "String", "Symbol"].forEach(function(element){
+		class2type["[object " + element + "]"] = element.toLowerCase();
+	});
+
+	/**
+	 * Determine the internal JavaScript [[Class]] of an object
+	 * Based on jQuery.type()
+	 * @param {*} obj
+	 * @return {string}
+	 */
+	const getType = function(obj){
+		if(obj === null){
+			return "null";
+		}
+		const rawType = typeof obj;
+		if((rawType === "object") || (rawType === "function")){
+			/* http://perfectionkills.com/instanceof-considered-harmful-or-how-to-write-a-robust-isarray/ */
+			const stringType = Object.prototype.toString.call(obj);
+			return class2type[stringType];
+		}
+		return rawType;
 	};
 
 	/* Generic matchers */
@@ -59,7 +83,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
-				var result = {
+				const result = {
 					pass: false
 				};
 				// Primitive values are not frozen in older browser (IE11 and before)
@@ -87,7 +111,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(actual === false){
@@ -109,7 +133,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
-				var result = {
+				const result = {
 					pass: false
 				};
 				// Primitive values are not frozen in older browser (IE11 and before)
@@ -138,7 +162,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, type){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(type === undefined){
@@ -164,7 +188,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
-				var result = {
+				const result = {
 					pass: false
 				};
 				// Primitive values are not sealed in older browser (IE11 and before)
@@ -192,7 +216,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(actual === true){
@@ -216,10 +240,10 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, propertyName, expectedValue){
-				var result = {
+				const result = {
 					pass: false
 				};
-				if(jQuery.type(propertyName) !== "string"){
+				if(getType(propertyName) !== "string"){
 					result.message = "Please specify the property as string";
 					return result;
 				}
@@ -247,14 +271,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, property){
-				var result = {
+				const result = {
 					pass: false
 				};
-				if(jQuery.type(property) !== "string"){
+				if(getType(property) !== "string"){
 					result.message = "Please specify the name of the property as string";
 					return result;
 				}
-				var desc = Object.getOwnPropertyDescriptor(actual, property);
+				const desc = Object.getOwnPropertyDescriptor(actual, property);
 				if(desc === undefined){
 					result.message = "Unable to find property: " + property;
 					return result;
@@ -278,30 +302,30 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, duckType, matchType){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(duckType === undefined){
 					result.message = "Please specify an instance of a duckType";
 					return result;
 				}
-				if(jQuery.type(actual) !== jQuery.type(duckType)){
-					result.message = "Type mismatch, comparing: " + jQuery.type(actual) + " vs " + jQuery.type(duckType);
+				if(getType(actual) !== getType(duckType)){
+					result.message = "Type mismatch, comparing: " + getType(actual) + " vs " + getType(duckType);
 					return result;
 				}
 				if(matchType === undefined){
 					// By default we check for type
 					matchType = true;
 				}
-				for(var key in duckType){
+				for(const key in duckType){
 					/* istanbul ignore else */
 					if(duckType.hasOwnProperty(key) === true){
-						var duckProp = duckType[key];
+						const duckProp = duckType[key];
 						if(actual.hasOwnProperty(key) === true){
 							if(matchType === true){
-								if(jQuery.type(duckProp) !== jQuery.type(actual[key])){
+								if(getType(duckProp) !== getType(actual[key])){
 									result.pass = false;
-									result.message = "Type of: ." + key + " does not match. Supposed to be: " + jQuery.type(duckProp);
+									result.message = "Type of: ." + key + " does not match. Supposed to be: " + getType(duckProp);
 									return result;
 								}
 							}
@@ -320,7 +344,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 
 	/* jQuery-based matchers */
 
-	var hasProperty = function(actualValue, expectedValue){
+	const hasProperty = function(actualValue, expectedValue){
 		if(expectedValue === undefined){
 			return actualValue !== undefined;
 		}
@@ -334,7 +358,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
-				var result = {
+				const result = {
 					pass: false
 				};
 
@@ -361,7 +385,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(isValidElement(actual) === false){
@@ -387,7 +411,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(isValidElement(actual) === false){
@@ -414,7 +438,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, element){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(isValidElement(actual) === false){
@@ -446,7 +470,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, selector, cardinality){
-				var result = {
+				const result = {
 					pass: false
 				};
 
@@ -455,16 +479,16 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 					result.message = "Please specify an Element as container";
 					return result;
 				}
-				if(jQuery.type(selector) !== "string"){
+				if(getType(selector) !== "string"){
 					result.message = "Please specify the selector as string";
 					return result;
 				}
-				if(jQuery.type(cardinality) !== "undefined" && jQuery.type(cardinality) !== "number"){
+				if(getType(cardinality) !== "undefined" && getType(cardinality) !== "number"){
 					result.message = "Please specify the cardinality as number";
 					return result;
 				}
 
-				var matchesCount = jQuery(actual).find(selector).length;
+				const matchesCount = jQuery(actual).find(selector).length;
 
 				// If the cardinality is not specified,
 				// the test passes if there is at least one child element matching the selector.
@@ -497,14 +521,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, selector){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(isValidElement(actual) === false){
 					result.message = "Please specify an Element";
 					return result;
 				}
-				if(jQuery.type(selector) !== "string"){
+				if(getType(selector) !== "string"){
 					result.message = "Please specify the selector as string";
 					return result;
 				}
@@ -527,7 +551,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(isValidElement(actual) === false){
@@ -553,7 +577,7 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(isValidElement(actual) === false){
@@ -581,14 +605,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, attributeName, expectedValue){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(isValidElement(actual) === false){
 					result.message = "Please specify an Element";
 					return result;
 				}
-				if(jQuery.type(attributeName) !== "string"){
+				if(getType(attributeName) !== "string"){
 					result.message = "Please specify the attribute as string";
 					return result;
 				}
@@ -612,14 +636,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, className){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(isValidElement(actual) === false){
 					result.message = "Please specify an Element";
 					return result;
 				}
-				if(jQuery.type(className) !== "string"){
+				if(getType(className) !== "string"){
 					result.message = "Please specify the name of the CSS class as string";
 					return result;
 				}
@@ -644,14 +668,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, propertyName, expectedValue){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(isValidElement(actual) === false){
 					result.message = "Please specify an Element";
 					return result;
 				}
-				if(jQuery.type(propertyName) !== "string"){
+				if(getType(propertyName) !== "string"){
 					result.message = "Please specify the CSS property as string";
 					return result;
 				}
@@ -681,14 +705,14 @@ if(typeof(window.jasmineMatchers) === "undefined"){
 			 * @return {jasmineMatchers.result}
 			 */
 			compare: function(actual, propertyName, expectedValue){
-				var result = {
+				const result = {
 					pass: false
 				};
 				if(isValidElement(actual) === false){
 					result.message = "Please specify an Element";
 					return result;
 				}
-				if(jQuery.type(propertyName) !== "string"){
+				if(getType(propertyName) !== "string"){
 					result.message = "Please specify the property as string";
 					return result;
 				}
